@@ -1,0 +1,3 @@
+package aprot;
+
+interface Component {}

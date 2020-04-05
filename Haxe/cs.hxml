@@ -1,0 +1,5 @@
+-cp src
+world
+-cs out/cs/Haxe
+-D no_root
+-D net-ver=40
