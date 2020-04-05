@@ -6,6 +6,10 @@ using Jurassic.Library;
 public class Test : MonoBehaviour
 {
     [SerializeField] private Text logText = default;
+    [SerializeField] private Image square = default;
+
+    private ObjectInstance mainObject;
+    private ArrayInstance entities;
 
     public void Start()
     {
@@ -19,11 +23,18 @@ public class Test : MonoBehaviour
         var engine = new ScriptEngine();
         engine.Evaluate(rawText);
 
-        var mainObject = engine.GetGlobalValue<ObjectInstance>("Main");
+        mainObject = engine.GetGlobalValue<ObjectInstance>("Main");
         Log($"mainObject = {mainObject}");
 
-        var entities = (ArrayInstance) mainObject.CallMemberFunction("init");
+        entities = (ArrayInstance) mainObject.CallMemberFunction("init");
         Log(PrintEntities(entities));
+
+        Log("Start - Finish");
+    }
+
+    public void Update()
+    {
+        Log("Update");
 
         var systems = (ArrayInstance) mainObject.CallMemberFunction("getSystems");
         foreach (ObjectInstance system in systems.ElementValues)
@@ -33,13 +44,23 @@ public class Test : MonoBehaviour
 
         Log(PrintEntities(entities));
 
-        Log("Finish");
+        var t = GetComponent((ObjectInstance) entities[0], "transform");
+        var p = (ObjectInstance) t["position"];
+        var v = new Vector2((float) (double) p["x"], (float) (double) p["y"]);
+        square.transform.localPosition = v;
+
+        Log("Update - Finish");
     }
 
-    private string PrintEntities(ArrayInstance entities)
+    private ObjectInstance GetComponent(ObjectInstance entity, string key)
+    {
+        return (ObjectInstance) entity[key];
+    }
+
+    private string PrintEntities(ArrayInstance e)
     {
         var txt = "## PrintEntities";
-        foreach (ObjectInstance entity in entities.ElementValues)
+        foreach (ObjectInstance entity in e.ElementValues)
         {
             txt += $"\n  - entity";
             txt += PrintObject(entity, "    ");
