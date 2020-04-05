@@ -23,7 +23,15 @@ public class Test : MonoBehaviour
         Log("Start");
 
         Application.targetFrameRate = 30;
-        LoadJs();
+
+        if (Application.isEditor)
+        {
+            LoadJsFromLocal();
+        }
+        else
+        {
+            LoadJsFromResources();
+        }
 
         entities = (ArrayInstance) mainObject.CallMemberFunction("init");
         Log(PrintEntities(entities));
@@ -31,29 +39,44 @@ public class Test : MonoBehaviour
         Log("Start - Finish");
     }
 
-    private void LoadJs()
+    private void LoadJs(string rawText)
     {
-        mainJsLastChanged = File.GetLastWriteTime(MainJs);
-
-        Debug.Log($"LoadJs {mainJsLastChanged}");
-        var rawText = File.ReadAllText(MainJs);
-        if (string.IsNullOrWhiteSpace(rawText))
-        {
-            Debug.Log("text is null");
-            return;
-        }
-
         var engine = new ScriptEngine();
         engine.Evaluate(rawText);
 
         mainObject = engine.GetGlobalValue<ObjectInstance>("Main");
     }
 
+    private void LoadJsFromResources()
+    {
+        Log("LoadJsFromResources");
+
+        var readText = ((TextAsset) Resources.Load("main")).text;
+        LoadJs(readText);
+    }
+
+    private void LoadJsFromLocal()
+    {
+        mainJsLastChanged = File.GetLastWriteTime(MainJs);
+
+        Debug.Log($"LoadJsFromLocal {mainJsLastChanged}");
+        var rawText = File.ReadAllText(MainJs);
+        if (string.IsNullOrWhiteSpace(rawText))
+        {
+            Debug.Log("text is null");
+            return;
+        }
+        LoadJs(rawText);
+    }
+
     public void Update()
     {
-        if (mainJsLastChanged != File.GetLastWriteTime(MainJs))
+        if (Application.isEditor)
         {
-            LoadJs();
+            if (mainJsLastChanged != File.GetLastWriteTime(MainJs))
+            {
+                LoadJsFromLocal();
+            }
         }
 
         var systems = (ArrayInstance) mainObject.CallMemberFunction("getSystems");
