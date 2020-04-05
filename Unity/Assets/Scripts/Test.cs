@@ -1,22 +1,28 @@
 ﻿using System;
+using System.Collections;
 using System.IO;
+using System.Threading.Tasks;
 using Jint;
 using Jint.Native;
 using Jint.Native.Array;
 using Jint.Native.Object;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class Test : MonoBehaviour
 {
     [SerializeField] private Text logText = default;
     [SerializeField] private Image square = default;
+    [SerializeField] private bool autoReload = false;
 
     private ObjectInstance mainObject;
     private ArrayInstance entities;
     private DateTime mainJsLastChanged;
 
     private const string MainJs = @"/Users/kyubuns/code/Aprot/Haxe/out/js/main.js";
+    private const string MainServer = "http://192.168.86.24:5000/main.js";
+    private bool loading = false;
 
     public void Start()
     {
@@ -47,10 +53,40 @@ public class Test : MonoBehaviour
         engine.Execute(rawText);
 
         mainObject = (ObjectInstance) engine.GetValue("Main");
+        loading = false;
+        Log("Load Finished");
+    }
+
+    public void LoadJsFromWeb()
+    {
+        if (loading) return;
+        loading = true;
+
+        Log("LoadJsFromWeb");
+
+        StartCoroutine(LoadJsFromWebInternal());
+    }
+
+    private IEnumerator LoadJsFromWebInternal()
+    {
+        var request = UnityWebRequest.Get(MainServer);
+        yield return request.SendWebRequest();
+
+        if (request.isNetworkError || request.isHttpError)
+        {
+            Log(request.error);
+        }
+        else
+        {
+            LoadJs(request.downloadHandler.text);
+        }
     }
 
     private void LoadJsFromResources()
     {
+        if (loading) return;
+        loading = true;
+
         Log("LoadJsFromResources");
 
         var readText = ((TextAsset) Resources.Load("main")).text;
@@ -59,6 +95,9 @@ public class Test : MonoBehaviour
 
     private void LoadJsFromLocal()
     {
+        if (loading) return;
+        loading = true;
+
         mainJsLastChanged = File.GetLastWriteTime(MainJs);
 
         Debug.Log($"LoadJsFromLocal {mainJsLastChanged}");
@@ -73,7 +112,9 @@ public class Test : MonoBehaviour
 
     public void Update()
     {
-        if (Application.isEditor)
+        if (mainObject == null) return;
+
+        if (autoReload && Application.isEditor)
         {
             if (mainJsLastChanged != File.GetLastWriteTime(MainJs))
             {
