@@ -15,12 +15,14 @@ class CubeRenderer extends System
 
 	public function run(entities: Array<Entity1>)
 	{
-		var tmp = new Array<Vector2>();
-		for (i in 0...entities.length)
-		{
-			tmp.push(new Vector2(1, 999));
-		}
-		Main.world.renderer.queue = tmp;
+		/*
+			var tmp = new Array<Vector2>();
+			for (i in 0...entities.length)
+			{
+				tmp.push(new Vector2(1, 999));
+			}
+			Main.world.renderer.queue = tmp;
+		 */
 	}
 }
 

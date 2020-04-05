@@ -12,7 +12,7 @@ class Main
 {
 	public static var world: World;
 
-	public static function getList(): Array<System>
+	public static function getSystems(): Array<System>
 	{
 		return [new Hoge(), new CubeRenderer()];
 	}
