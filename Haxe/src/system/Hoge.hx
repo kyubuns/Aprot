@@ -14,8 +14,18 @@ class Hoge extends System
 	{
 		for (entity in entities)
 		{
-			entity.transform.position.x += 1;
-			entity.transform.position.y += 1;
+			entity.transform.position.x += 20;
+			entity.transform.position.y += 20;
+
+			if (entity.transform.position.x > 450)
+			{
+				entity.transform.position.x = -450;
+			}
+
+			if (entity.transform.position.y > 450)
+			{
+				entity.transform.position.y = -450;
+			}
 		}
 	}
 }

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.IO;
+using UnityEngine;
 using UnityEngine.UI;
 using Jurassic;
 using Jurassic.Library;
@@ -10,6 +12,9 @@ public class Test : MonoBehaviour
 
     private ObjectInstance mainObject;
     private ArrayInstance entities;
+    private DateTime mainJsLastChanged;
+
+    private const string MainJs = @"/Users/kyubuns/code/Aprot/Haxe/out/js/main.js";
 
     public void Start()
     {
@@ -17,14 +22,8 @@ public class Test : MonoBehaviour
 
         Log("Start");
 
-        var rawText = System.IO.File.ReadAllText(@"/Users/kyubuns/code/Aprot/Haxe/out/js/main.js");
-        Debug.Log(rawText);
-
-        var engine = new ScriptEngine();
-        engine.Evaluate(rawText);
-
-        mainObject = engine.GetGlobalValue<ObjectInstance>("Main");
-        Log($"mainObject = {mainObject}");
+        Application.targetFrameRate = 30;
+        LoadJs();
 
         entities = (ArrayInstance) mainObject.CallMemberFunction("init");
         Log(PrintEntities(entities));
@@ -32,9 +31,30 @@ public class Test : MonoBehaviour
         Log("Start - Finish");
     }
 
+    private void LoadJs()
+    {
+        mainJsLastChanged = File.GetLastWriteTime(MainJs);
+
+        Debug.Log($"LoadJs {mainJsLastChanged}");
+        var rawText = File.ReadAllText(MainJs);
+        if (string.IsNullOrWhiteSpace(rawText))
+        {
+            Debug.Log("text is null");
+            return;
+        }
+
+        var engine = new ScriptEngine();
+        engine.Evaluate(rawText);
+
+        mainObject = engine.GetGlobalValue<ObjectInstance>("Main");
+    }
+
     public void Update()
     {
-        Log("Update");
+        if (mainJsLastChanged != File.GetLastWriteTime(MainJs))
+        {
+            LoadJs();
+        }
 
         var systems = (ArrayInstance) mainObject.CallMemberFunction("getSystems");
         foreach (ObjectInstance system in systems.ElementValues)
@@ -42,14 +62,19 @@ public class Test : MonoBehaviour
             system.CallMemberFunction("run", entities);
         }
 
-        Log(PrintEntities(entities));
+        // Log(PrintEntities(entities));
 
         var t = GetComponent((ObjectInstance) entities[0], "transform");
         var p = (ObjectInstance) t["position"];
-        var v = new Vector2((float) (double) p["x"], (float) (double) p["y"]);
+        var v = new Vector2(ToFloat(p["x"]), ToFloat(p["y"]));
         square.transform.localPosition = v;
+    }
 
-        Log("Update - Finish");
+    private float ToFloat(object n)
+    {
+        if (n is double d) return (float) d;
+        if (n is int i) return i;
+        throw new Exception($"unknown {n.GetType()}");
     }
 
     private ObjectInstance GetComponent(ObjectInstance entity, string key)
@@ -79,7 +104,7 @@ public class Test : MonoBehaviour
                 txt += PrintObject(objectInstance, $"{prefix}  ");
                 continue;
             }
-            txt += $"\n{prefix}- {property.Key} = {property.Value}";
+            txt += $"\n{prefix}- {property.Key} = {property.Value}({property.Value.GetType()})";
         }
         return txt;
     }
