@@ -1,9 +1,11 @@
 ﻿using System;
 using System.IO;
+using Jint;
+using Jint.Native;
+using Jint.Native.Array;
+using Jint.Native.Object;
 using UnityEngine;
 using UnityEngine.UI;
-using Jurassic;
-using Jurassic.Library;
 
 public class Test : MonoBehaviour
 {
@@ -33,7 +35,7 @@ public class Test : MonoBehaviour
             LoadJsFromResources();
         }
 
-        entities = (ArrayInstance) mainObject.CallMemberFunction("init");
+        entities = (ArrayInstance) mainObject.Get("init").Invoke();
         Log(PrintEntities(entities));
 
         Log("Start - Finish");
@@ -41,10 +43,10 @@ public class Test : MonoBehaviour
 
     private void LoadJs(string rawText)
     {
-        var engine = new ScriptEngine();
-        engine.Evaluate(rawText);
+        var engine = new Engine();
+        engine.Execute(rawText);
 
-        mainObject = engine.GetGlobalValue<ObjectInstance>("Main");
+        mainObject = (ObjectInstance) engine.GetValue("Main");
     }
 
     private void LoadJsFromResources()
@@ -79,39 +81,38 @@ public class Test : MonoBehaviour
             }
         }
 
-        var systems = (ArrayInstance) mainObject.CallMemberFunction("getSystems");
-        foreach (ObjectInstance system in systems.ElementValues)
+        var systems = (ArrayInstance) mainObject.Get("getSystems").Invoke();
+        foreach (var system in systems)
         {
-            system.CallMemberFunction("run", entities);
+            system.Get("run").Invoke(entities);
         }
 
         // Log(PrintEntities(entities));
 
         var t = GetComponent((ObjectInstance) entities[0], "transform");
-        var p = (ObjectInstance) t["position"];
-        var v = new Vector2(ToFloat(p["x"]), ToFloat(p["y"]));
+        var p = (ObjectInstance) t.Get("position");
+        var v = new Vector2(ToFloat(p.Get("x")), ToFloat(p.Get("y")));
         square.transform.localPosition = v;
     }
 
     private float ToFloat(object n)
     {
-        if (n is double d) return (float) d;
-        if (n is int i) return i;
-        throw new Exception($"unknown {n.GetType()}");
+        var number = (JsNumber) n;
+        return (float) number.AsNumber();
     }
 
     private ObjectInstance GetComponent(ObjectInstance entity, string key)
     {
-        return (ObjectInstance) entity[key];
+        return (ObjectInstance) entity.Get(key);
     }
 
     private string PrintEntities(ArrayInstance e)
     {
         var txt = "## PrintEntities";
-        foreach (ObjectInstance entity in e.ElementValues)
+        foreach (var entity in e)
         {
             txt += $"\n  - entity";
-            txt += PrintObject(entity, "    ");
+            txt += PrintObject((ObjectInstance) entity, "    ");
         }
         return txt;
     }
@@ -119,15 +120,15 @@ public class Test : MonoBehaviour
     private string PrintObject(ObjectInstance obj, string prefix)
     {
         var txt = "";
-        foreach (var property in obj.Properties)
+        foreach (var property in obj.GetOwnProperties())
         {
-            if (property.Value is ObjectInstance objectInstance)
+            if (property.Value.Value is ObjectInstance objectInstance)
             {
                 txt += $"\n{prefix}- {property.Key}";
                 txt += PrintObject(objectInstance, $"{prefix}  ");
                 continue;
             }
-            txt += $"\n{prefix}- {property.Key} = {property.Value}({property.Value.GetType()})";
+            txt += $"\n{prefix}- {property.Key} = {property.Value.Value}({property.Value.Value.GetType()})";
         }
         return txt;
     }
