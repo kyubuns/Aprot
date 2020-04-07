@@ -52,7 +52,8 @@ public class Test : MonoBehaviour
         var engine = new Engine();
         engine.Execute(rawText);
 
-        mainObject = (ObjectInstance) engine.GetValue("Main");
+        var aprotHxNameSpace = engine.GetValue("aprotHx");
+        mainObject = (ObjectInstance) aprotHxNameSpace.Get("Main");
         loading = false;
         Log("Load Finished");
     }
