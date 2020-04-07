@@ -1,8 +1,6 @@
 package aprotHx.core;
 
-#if cs
-import cs.system.collections.generic.List_1;
-#end
+import haxe.ds.Vector;
 
 @:generic
 class ArrayWrapper<T>
@@ -11,15 +9,13 @@ class ArrayWrapper<T>
 
 	public var value: Array<T> = [];
 
-	#if cs
-	public function toTyped(): List_1<T>
+	public function toTyped(): Vector<T>
 	{
-		var v = new List_1<T>();
-		for (e in value)
+		var v = new Vector<T>(value.length);
+		for (i in 0...value.length)
 		{
-			v.Add(e);
+			v[i] = value[i];
 		}
 		return v;
 	}
-	#end
 }

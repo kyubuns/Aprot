@@ -27,8 +27,7 @@ class Main
 				movable: new Movable()
 			},
 			{
-				transform: new Transform(new Vector2(6, 10)),
-				movable: new Movable()
+				transform: new Transform(new Vector2(0, 100)),
 			}
 		];
 	}
