@@ -1,6 +1,6 @@
 -cp src
 aprotHx.world
 --macro nullSafety("aprot", Strict)
--cs out/cs/Haxe
+-cs out/cs/AprotHx
 -D no_root
 -D net-ver=40

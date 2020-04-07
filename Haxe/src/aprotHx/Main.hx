@@ -39,7 +39,7 @@ class Main
 		outputWorld = new OutputWorld(new Renderer());
 	}
 
-	public static function Finish(): String
+	public static function finish(): String
 	{
 		return Serializer.run(outputWorld);
 	}

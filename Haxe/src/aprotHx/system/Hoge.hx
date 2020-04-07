@@ -14,8 +14,8 @@ class Hoge extends System
 	{
 		for (entity in entities)
 		{
-			entity.transform.position.x += 20;
-			entity.transform.position.y += 20;
+			entity.transform.position.x += 500 * Main.inputWorld.time.deltaTime;
+			entity.transform.position.y += 500 * Main.inputWorld.time.deltaTime;
 
 			if (entity.transform.position.x > 450)
 			{

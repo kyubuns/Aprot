@@ -14,7 +14,7 @@ public class Test : MonoBehaviour
 {
     [SerializeField] private Text logText = default;
     [SerializeField] private Image square = default;
-    [SerializeField] private bool autoReload = false;
+    [SerializeField] private bool autoReload = true;
 
     private ObjectInstance mainObject;
     private ArrayInstance entities;
@@ -123,29 +123,28 @@ public class Test : MonoBehaviour
             }
         }
 
+        var time = new aprotHx.context.Time(Time.deltaTime);
+        var input = new aprotHx.context.Input(0f, 0f);
+        var inputWorld = new aprotHx.world.InputWorld(time, input);
+        var serializedInputWorld = aprotHx.world.InputWorld.serialize(inputWorld);
+
+        mainObject.Get("start").Invoke(serializedInputWorld);
+
         var systems = (ArrayInstance) mainObject.Get("getSystems").Invoke();
         foreach (var system in systems)
         {
             system.Get("run").Invoke(entities);
         }
 
+        var serializedOutputWorld = mainObject.Get("finish").Invoke().AsString();
+        var outputWorld = aprotHx.world.OutputWorld.serialize(serializedOutputWorld);
+
         // Log(PrintEntities(entities));
 
-        var t = GetComponent((ObjectInstance) entities[0], "transform");
-        var p = (ObjectInstance) t.Get("position");
-        var v = new Vector2(ToFloat(p.Get("x")), ToFloat(p.Get("y")));
+        var renderQueue = outputWorld.renderer.queue.toTyped();
+
+        var v = new Vector2((float) renderQueue[0].x, (float) renderQueue[0].y);
         square.transform.localPosition = v;
-    }
-
-    private float ToFloat(object n)
-    {
-        var number = (JsNumber) n;
-        return (float) number.AsNumber();
-    }
-
-    private ObjectInstance GetComponent(ObjectInstance entity, string key)
-    {
-        return (ObjectInstance) entity.Get(key);
     }
 
     private string PrintEntities(ArrayInstance e)
