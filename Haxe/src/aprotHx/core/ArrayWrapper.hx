@@ -1,5 +1,9 @@
 package aprotHx.core;
 
+#if cs
+import cs.system.collections.generic.List_1;
+#end
+
 @:generic
 class ArrayWrapper<T>
 {

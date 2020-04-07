@@ -1,16 +1,18 @@
 package aprotHx;
 
 import haxe.Serializer;
+import haxe.Unserializer;
 import aprotHx.world.*;
 import aprotHx.core.*;
 import aprotHx.system.*;
-import aprotHx.context.*;
 import aprotHx.component.*;
+import aprotHx.context.*;
 
 @:expose
 class Main
 {
-	public static var world: World;
+	public static var inputWorld: InputWorld;
+	public static var outputWorld: OutputWorld;
 
 	public static function getSystems(): Array<System>
 	{
@@ -19,12 +21,6 @@ class Main
 
 	public static function init(): Array<Dynamic>
 	{
-		world = new World();
-		world.renderer = new Renderer();
-		world.renderer.queue = new Array<Vector2>();
-		world.renderer.queue.push(new Vector2(1, 2));
-		world.renderer.queue.push(new Vector2(3, 4));
-
 		return [
 			{
 				transform: new Transform(new Vector2(5, 10)),
@@ -37,8 +33,14 @@ class Main
 		];
 	}
 
-	public static function serializeWorld(): String
+	public static function start(serializedInputWorld: String)
 	{
-		return Serializer.run(world);
+		inputWorld = Unserializer.run(serializedInputWorld);
+		outputWorld = new OutputWorld(new Renderer());
+	}
+
+	public static function Finish(): String
+	{
+		return Serializer.run(outputWorld);
 	}
 }
