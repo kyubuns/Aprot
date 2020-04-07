@@ -4,3 +4,4 @@ aprotHx.world
 -cs out/cs/AprotHx
 -D no_root
 -D net-ver=40
+-cmd cp out/cs/AprotHx/bin/AprotHx.dll ../Unity/Assets/Scripts/
