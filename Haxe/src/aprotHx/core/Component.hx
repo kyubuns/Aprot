@@ -1,3 +1,3 @@
-package aprot;
+package aprotHx.core;
 
 interface Component {}

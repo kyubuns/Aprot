@@ -1,6 +1,6 @@
-package component;
+package aprotHx.component;
 
-import aprot.Component;
+import aprotHx.core.*;
 
 class Movable implements Component
 {

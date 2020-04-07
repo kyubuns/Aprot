@@ -1,7 +1,6 @@
-package component;
+package aprotHx.component;
 
-import core.Vector2;
-import aprot.Component;
+import aprotHx.core.*;
 
 class Transform implements Component
 {

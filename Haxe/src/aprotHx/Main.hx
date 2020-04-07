@@ -1,11 +1,11 @@
-import world.World;
+package aprotHx;
+
 import haxe.Serializer;
-import core.Vector2;
-import aprot.System;
-import system.Hoge;
-import system.CubeRenderer;
-import component.Transform;
-import component.Movable;
+import aprotHx.world.*;
+import aprotHx.core.*;
+import aprotHx.system.*;
+import aprotHx.context.*;
+import aprotHx.component.*;
 
 @:expose
 class Main
@@ -20,7 +20,7 @@ class Main
 	public static function init(): Array<Dynamic>
 	{
 		world = new World();
-		world.renderer = new context.Renderer();
+		world.renderer = new Renderer();
 		world.renderer.queue = new Array<Vector2>();
 		world.renderer.queue.push(new Vector2(1, 2));
 		world.renderer.queue.push(new Vector2(3, 4));

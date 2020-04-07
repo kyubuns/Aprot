@@ -1,4 +1,4 @@
-package core;
+package aprotHx.core;
 
 class Vector2
 {

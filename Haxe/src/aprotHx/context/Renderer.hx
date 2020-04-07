@@ -1,7 +1,6 @@
-package context;
+package aprotHx.context;
 
-import aprot.*;
-import core.*;
+import aprotHx.core.*;
 
 class Renderer implements Context
 {

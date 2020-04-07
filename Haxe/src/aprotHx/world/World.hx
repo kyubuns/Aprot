@@ -1,7 +1,7 @@
-package world;
+package aprotHx.world;
 
 import haxe.Unserializer;
-import context.Renderer;
+import aprotHx.context.Renderer;
 
 class World
 {

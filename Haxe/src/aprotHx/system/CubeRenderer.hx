@@ -1,10 +1,7 @@
-package system;
+package aprotHx.system;
 
-import haxe.ds.Vector;
-import core.Vector2;
-import aprot.System;
-import aprot.Native;
-import component.*;
+import aprotHx.core.*;
+import aprotHx.component.*;
 
 class CubeRenderer extends System
 {

@@ -1,7 +1,7 @@
-package system;
+package aprotHx.system;
 
-import aprot.System;
-import component.*;
+import aprotHx.core.*;
+import aprotHx.component.*;
 
 class Hoge extends System
 {

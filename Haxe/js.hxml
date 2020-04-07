@@ -1,3 +1,4 @@
 -cp src
-Main
+aprotHx.Main
+--macro nullSafety("aprot", Strict)
 -js out/js/main.js
