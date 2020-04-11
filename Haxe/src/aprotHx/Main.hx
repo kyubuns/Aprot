@@ -16,19 +16,47 @@ class Main
 
 	public static function getSystems(): Array<System>
 	{
-		return [new Hoge(), new CubeRenderer()];
+		return [new Hoge(), new Fuga(), new CubeRenderer()];
 	}
 
 	public static function init(): Array<Dynamic>
 	{
 		return [
 			{
-				transform: new Transform(new Vector2(5, 10)),
+				transform: new Transform(new Vector2(0, 0)),
 				movable: new Movable()
 			},
 			{
 				transform: new Transform(new Vector2(0, 100)),
-			}
+			},
+			{
+				transform: new Transform(new Vector2(100, 100)),
+				movable: new Movable()
+			},
+			{
+				transform: new Transform(new Vector2(100, 200)),
+			},
+			{
+				transform: new Transform(new Vector2(200, 200)),
+				movable: new Movable()
+			},
+			{
+				transform: new Transform(new Vector2(200, 300)),
+			},
+			{
+				transform: new Transform(new Vector2(300, 300)),
+				movable: new Movable()
+			},
+			{
+				transform: new Transform(new Vector2(300, 400)),
+			},
+			{
+				transform: new Transform(new Vector2(400, 400)),
+				movable: new Movable()
+			},
+			{
+				transform: new Transform(new Vector2(250, 50)),
+			},
 		];
 	}
 

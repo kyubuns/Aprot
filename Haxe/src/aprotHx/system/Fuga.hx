@@ -3,7 +3,7 @@ package aprotHx.system;
 import aprotHx.core.*;
 import aprotHx.component.*;
 
-class Hoge extends System
+class Fuga extends System
 {
 	public override function get(): Array<Array<String>>
 	{
@@ -16,8 +16,7 @@ class Hoge extends System
 		{
 			for (entity in entities)
 			{
-				entity.transform.position.x += 500 * Main.inputWorld.time.deltaTime * 0.01;
-				entity.transform.position.y += 500 * Main.inputWorld.time.deltaTime * 0.01;
+				entity.transform.position.x += 100 * Main.inputWorld.time.deltaTime * 0.01;
 
 				if (entity.transform.position.x > 450)
 				{
@@ -35,6 +34,5 @@ class Hoge extends System
 
 private class Entity1
 {
-	public var movable: Movable;
 	public var transform: Transform;
 }
