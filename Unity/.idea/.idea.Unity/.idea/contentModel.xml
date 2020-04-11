@@ -8,6 +8,7 @@
           <e p="main.txt" t="Include" />
         </e>
         <e p="Scripts" t="Include">
+          <e p="LangugageSupport.cs" t="Include" />
           <e p="Test.cs" t="Include" />
         </e>
       </e>
