@@ -33,6 +33,7 @@ class SystemBuilder
 		}
 
 		var refEntitiesInitializer = [];
+		refEntitiesInitializer.push(macro entity.id);
 		for (index in 0...refParamNames.length)
 		{
 			var refParamName = refParamNames[index];

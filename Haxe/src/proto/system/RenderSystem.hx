@@ -16,6 +16,7 @@ class RenderSystem extends aprotHx.System
 		var tmp = new Array<Vector2>();
 		for (entity in entities)
 		{
+			trace('  - ${entity.id}');
 			tmp.push(entity.transform.position);
 		}
 		context.output.renderer.queue.value = tmp;

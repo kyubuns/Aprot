@@ -41,6 +41,18 @@ class RefEntityBuilder
 			var constructorExprs: Array<Expr> = [];
 			var typeParams: Array<TypeParamDecl> = [];
 
+			var ct = TPath({ pack: [], name: 'Int' });
+			constructorArgs.push({ name: "id", type: ct });
+			constructorExprs.push(macro this.id = id);
+			var meta: Metadata = [];
+			fields.push({
+				pos: pos,
+				name: "id",
+				access: [APublic],
+				kind: FProp("default", "null", ct),
+				meta: meta,
+			});
+
 			for (i in 0...arity)
 			{
 				var cls = types[i].getClass();

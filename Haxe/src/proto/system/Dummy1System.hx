@@ -15,6 +15,7 @@ class Dummy1System extends aprotHx.System
 		trace("Dummy1System.update");
 		for (entity in entities)
 		{
+			trace('  - ${entity.id}');
 			entity.transform.position.x += entity.velocity.vector.x * context.input.time.deltaTime;
 			entity.transform.position.y += entity.velocity.vector.y * context.input.time.deltaTime;
 		}
