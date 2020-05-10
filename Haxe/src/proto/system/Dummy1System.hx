@@ -1,17 +1,17 @@
 package proto.system;
 
+import aprotHx.*;
+import aprotHx.type.*;
 import proto.inputContext.InputContext;
 import proto.outputContext.OutputContext;
 import proto.component.*;
-import aprotHx.*;
 
 class Dummy1System extends aprotHx.System
 {
 	public function new() {}
 
-	public function dummyUpdateInternal(context: Dynamic /*Context<InputContext, OutputContext>*/, entityList: EntityList)
+	public function dummyUpdateInternal(context: Dynamic, entityList: EntityList)
 	{
-		trace("Dummy1System.dummyUpdateInternal!!!!!!!!!!!");
 		var entities = new Array<RefEntity<Transform, Velocity>>();
 		for (entity in entityList.entities.value)
 		{
@@ -27,7 +27,6 @@ class Dummy1System extends aprotHx.System
 
 	public function update(context: Context<InputContext, OutputContext>, entities: Array<RefEntity<Transform, Velocity>>)
 	{
-		trace("Dummy1System.update!!!!!!");
 		for (entity in entities)
 		{
 			entity.transform.position.x += entity.velocity.vector.x * context.input.time.deltaTime;
