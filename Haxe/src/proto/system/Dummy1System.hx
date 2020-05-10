@@ -3,9 +3,11 @@ package proto.system;
 import proto.component.*;
 import aprotHx.*;
 
-class Dummy implements aprotHx.System
+class Dummy1System implements aprotHx.System
 {
-	function update(context: Context, entities: Array<Entity2<Transform, Velocity>>)
+	public function new() {}
+
+	public function update(context: Context, entities: Array<Entity2<Transform, Velocity>>)
 	{
 		for (entity in entities)
 		{
