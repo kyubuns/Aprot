@@ -15,11 +15,12 @@ class Dummy1System extends aprotHx.System
 		var entities = new Array<RefEntity<Transform, Velocity>>();
 		for (entity in entityList.entities.value)
 		{
-			var t1 = entity.components.value.filter(x -> Std.is(x, Transform));
-			var t2 = entity.components.value.filter(x -> Std.is(x, Velocity));
-			if (t1.length > 0 && t2.length > 0)
+			var refComponents = [];
+			refComponents.push(entity.components.value.filter(x -> Std.is(x, Transform)));
+			refComponents.push(entity.components.value.filter(x -> Std.is(x, Velocity)));
+			if (refComponents.filter(x -> x.length == 0).length == 0)
 			{
-				entities.push(new RefEntity<Transform, Velocity>(cast(t1[0], Transform), cast(t2[0], Velocity)));
+				entities.push(new RefEntity<Transform, Velocity>(cast(refComponents[0][0], Transform), cast(refComponents[1][0], Velocity)));
 			}
 		}
 		update(context, entities);

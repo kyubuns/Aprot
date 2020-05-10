@@ -20,10 +20,12 @@ class SystemBuilder
 
 		var dummy = fields.filter(x -> x.name == "dummyUpdateInternal")[0];
 
-		var code = [];
-		code.push(macro trace('before update $pos'));
-		code.push(macro $i{dummy.name}($i{"context"}, $i{"entityList"}));
-		code.push(macro trace('after update $pos'));
+		var code = macro
+			{
+				trace('before update $pos');
+				$i{dummy.name}($i{"context"}, $i{"entityList"});
+				trace('after update $pos');
+			};
 
 		fields.push({
 			name: "updateInternal",
@@ -31,7 +33,7 @@ class SystemBuilder
 			kind: FFun({
 				args: args,
 				ret: null,
-				expr: macro $b{code}
+				expr: code
 			}),
 			pos: pos
 		});

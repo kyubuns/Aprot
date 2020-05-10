@@ -15,10 +15,11 @@ class RenderSystem extends aprotHx.System
 		var entities = new Array<RefEntity<Transform>>();
 		for (entity in entityList.entities.value)
 		{
-			var t1 = entity.components.value.filter(x -> Std.is(x, Transform));
-			if (t1.length > 0)
+			var refComponents = [];
+			refComponents.push(entity.components.value.filter(x -> Std.is(x, Transform)));
+			if (refComponents.filter(x -> x.length == 0).length == 0)
 			{
-				entities.push(new RefEntity<Transform>(cast(t1[0], Transform)));
+				entities.push(new RefEntity<Transform>(cast(refComponents[0][0], Transform)));
 			}
 		}
 		update(context, entities);
