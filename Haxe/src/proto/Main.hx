@@ -1,7 +1,8 @@
 package proto;
 
-import haxe.Serializer;
 import haxe.Unserializer;
+import proto.inputContext.InputContext;
+import haxe.Serializer;
 import aprotHx.*;
 import proto.system.*;
 import proto.outputContext.*;
@@ -19,20 +20,10 @@ class Main
 		return [new Dummy1System()];
 	}
 
-	static public function update(input: String): String
+	static public function update(serializedInputContext: String, serializedEntities: String): String
 	{
-		var outputContext = createOutputContext();
-		var inputWorld = cast(Unserializer.run(input), InputWorld);
-		var entities = Unserializer.run(inputWorld.entities);
-		var systems = createSystems();
-		var context = new Context(inputWorld.context, outputContext);
-
-		for (system in systems)
-		{
-			// system.update(context, entities);
-		}
-
-		var outputWorld = new OutputWorld(outputContext, Serializer.run(entities));
+		var inputContext = cast(Unserializer.run(serializedInputContext), InputContext);
+		var outputWorld = Engine.update(inputContext, serializedEntities, createOutputContext(), createSystems());
 		return Serializer.run(outputWorld);
 	}
 }
