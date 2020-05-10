@@ -21,6 +21,7 @@ class Check
 		entities.add(entity1);
 
 		var entity2 = new Array<Component>();
+
 		entity2.push(new Transform(new Vector2(9, 2)));
 		entities.add(entity2);
 

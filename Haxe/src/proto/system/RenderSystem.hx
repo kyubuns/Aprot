@@ -6,16 +6,16 @@ import proto.inputContext.InputContext;
 import proto.outputContext.OutputContext;
 import proto.component.*;
 
-class RenderSystem implements aprotHx.System
+class RenderSystem extends aprotHx.System
 {
 	public function new() {}
 
-	public function update(context: Context<InputContext, OutputContext>, entities: Array<Entity1<Transform>>)
+	public function update(context: Context<InputContext, OutputContext>, entities: Array<RefEntity<Transform>>)
 	{
 		var tmp = new Array<Vector2>();
 		for (entity in entities)
 		{
-			tmp.push(entity.value1.position);
+			tmp.push(entity.transform.position);
 		}
 		context.output.renderer.queue.value = tmp;
 	}

@@ -18,6 +18,7 @@ class Main
 	static public function createSystems(): Array<System>
 	{
 		return [new Dummy1System()];
+		// return [new Dummy1System(), new RenderSystem()];
 	}
 
 	static public function update(serializedInputContext: String, serializedEntities: String): String

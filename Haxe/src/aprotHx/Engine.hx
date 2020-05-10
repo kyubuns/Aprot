@@ -10,7 +10,13 @@ class Engine
 			systems: Array<System>): OutputWorld<TOutputContext>
 	{
 		var entities = cast(Unserializer.run(serializedEntities), EntityList);
-		var dummy = new OutputWorld<TOutputContext>(outputContext, Serializer.run(entities));
-		return dummy;
+		var context = new Context<TInputContext, TOutputContext>(inputContext, outputContext);
+
+		for (system in systems)
+		{
+			system.updateInternal(context, entities);
+		}
+		var outputWorld = new OutputWorld<TOutputContext>(outputContext, Serializer.run(entities));
+		return outputWorld;
 	}
 }
