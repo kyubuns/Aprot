@@ -1,8 +1,10 @@
 package proto;
 
-import aprotHx.type.Vector2;
 import haxe.Serializer;
 import haxe.Unserializer;
+import aprotHx.type.*;
+import proto.inputContext.*;
+import proto.outputContext.*;
 import proto.component.*;
 
 class Main
@@ -22,8 +24,12 @@ class Main
 
 		printEntities(entities);
 
+		var time = new Time(0.1);
+		var input = new Input(new Vector2(1.0, 0.0));
+		var inputContext = new InputContext(time, input);
+
 		var serializedEntities = Serializer.run(entities);
-		var inputWorld = new InputWorld(serializedEntities);
+		var inputWorld = new InputWorld(inputContext, serializedEntities);
 		var inputString = Serializer.run(inputWorld);
 		var outputString = update(inputString);
 		var outputWorld = Unserializer.run(outputString);
@@ -46,9 +52,13 @@ class Main
 
 	static public function update(input: String): String
 	{
-		var inputWorld = Unserializer.run(input);
+		var renderer = new Renderer();
+		var outputContext = new OutputContext(renderer);
+
+		var inputWorld = cast(Unserializer.run(input), InputWorld);
 		var entities = Unserializer.run(inputWorld.entities);
-		var outputWorld = new OutputWorld(Serializer.run(entities));
+		var context = new Context(inputWorld.context, outputContext);
+		var outputWorld = new OutputWorld(outputContext, Serializer.run(entities));
 		return Serializer.run(outputWorld);
 	}
 }

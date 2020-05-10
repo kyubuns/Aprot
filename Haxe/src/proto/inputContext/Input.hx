@@ -2,7 +2,7 @@ package proto.inputContext;
 
 import aprotHx.type.Vector2;
 
-class Time
+class Input
 {
 	public function new(vector: Vector2)
 	{
