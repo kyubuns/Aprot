@@ -14,17 +14,48 @@ class SystemBuilder
 	{
 		var pos = Context.currentPos();
 		var fields = Context.getBuildFields();
+
 		var args: Array<FunctionArg> = [];
 		args.push({ name: "context", type: macro:Dynamic });
 		args.push({ name: "entityList", type: macro:EntityList });
 
-		var dummy = fields.filter(x -> x.name == "dummyUpdateInternal")[0];
+		var updateFunction = fields.filter(x -> x.name == "update")[0];
+		var updateFunctionArgsType = MacroUtil.getArgsType(updateFunction.kind);
+		var refEntityType = MacroUtil.getArrayType(updateFunctionArgsType[1].type);
+		var refParams = MacroUtil.getGenericTypes(refEntityType);
+		var refParamNames = refParams.map(x -> MacroUtil.tpTypeToName(x));
+		var typePath = { name: "RefEntity", pack: [], params: refParams };
+
+		var createRefEntities = [];
+		for (refParamName in refParamNames)
+		{
+			createRefEntities.push(macro refComponents.push(entity.components.value.filter(x -> Std.is(x, $i{MacroUtil.getName(refParamName)}))));
+		}
+
+		var refEntitiesInitializer = [];
+		for (index in 0...refParamNames.length)
+		{
+			var refParamName = refParamNames[index];
+			var a: haxe.macro.Expr = {
+				expr: EConst(CInt('$index')),
+				pos: pos
+			};
+			refEntitiesInitializer.push(macro cast(refComponents[$a][0], $refParamName));
+		}
 
 		var code = macro
 			{
-				trace('before update $pos');
-				$i{dummy.name}($i{"context"}, $i{"entityList"});
-				trace('after update $pos');
+				var entities = new Array<$refEntityType>();
+				for (entity in entityList.entities.value)
+				{
+					var refComponents = [];
+					$a{createRefEntities};
+					if (refComponents.filter(x -> x.length == 0).length == 0)
+					{
+						entities.push(new $typePath($a{refEntitiesInitializer}));
+					}
+				}
+				update(context, entities);
 			};
 
 		fields.push({

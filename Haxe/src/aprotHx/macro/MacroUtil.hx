@@ -54,15 +54,18 @@ class MacroUtil
 		switch (value)
 		{
 			case TPType(a):
-				{
-					switch (a)
-					{
-						case TPath(b):
-							return b.name;
-						default:
-							throw 'getArrayTypeError';
-					}
-				}
+				return a;
+			default:
+				throw 'getArrayTypeError';
+		}
+	}
+
+	public static function getName(a: ComplexType)
+	{
+		switch (a)
+		{
+			case TPath(b):
+				return b.name;
 			default:
 				throw 'getArrayTypeError';
 		}
