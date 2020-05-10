@@ -1,0 +1,3 @@
+package aprotHx;
+
+interface Component {}

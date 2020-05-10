@@ -1,0 +1,3 @@
+package proto;
+
+class Context {}

@@ -1,0 +1,6 @@
+-cp src
+proto.Main
+--macro nullSafety("aprotHx", Strict)
+--macro nullSafety("proto", Strict)
+--main proto.Main
+--interp

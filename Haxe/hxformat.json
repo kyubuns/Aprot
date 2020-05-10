@@ -1,0 +1,33 @@
+{
+    "whitespace": {
+        "bracesConfig": {
+            "objectLiteralBraces": {
+                "openingPolicy": "around",
+                "closingPolicy": "around"
+            },
+            "typedefBraces": {
+                "openingPolicy": "around",
+                "closingPolicy": "around"
+            },
+            "blockBraces": {
+                "openingPolicy": "around",
+                "closingPolicy": "around"
+            },
+            "anonTypeBraces": {
+                "openingPolicy": "none",
+                "closingPolicy": "none"
+            },
+            "unknownBraces": {
+                "openingPolicy": "around",
+                "closingPolicy": "around"
+            }
+        },
+        "commaPolicy": "after",
+        "typeHintColonPolicy": "after"
+    },
+    "lineEnds": {
+        "blockCurly": {
+            "leftCurly": "both"
+        }
+    }
+}
