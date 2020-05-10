@@ -27,7 +27,7 @@ class RefEntityBuilder
 		var pos = Context.currentPos();
 
 		var arity = types.length;
-		var name = 'RefEntity_${types.map(x -> x.getClass().name).join("")}';
+		var name = 'RefEntity_${types.map(x -> x.getClass().name).join("_")}';
 		var typeExists = try
 		{
 			Context.getType(name);
