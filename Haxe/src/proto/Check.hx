@@ -1,6 +1,6 @@
 package proto;
 
-import aprotHx.Component;
+import aprotHx.*;
 import haxe.Serializer;
 import haxe.Unserializer;
 import aprotHx.type.*;
@@ -13,16 +13,16 @@ class Check
 	{
 		trace("Check.main");
 
-		var entities = new Array<Array<Component>>();
+		var entities = new EntityList();
 
 		var entity1 = new Array<Component>();
 		entity1.push(new Transform(new Vector2(1, 5)));
 		entity1.push(new Velocity(new Vector2(2, 2)));
-		entities.push(entity1);
+		entities.add(entity1);
 
 		var entity2 = new Array<Component>();
 		entity2.push(new Transform(new Vector2(9, 2)));
-		entities.push(entity2);
+		entities.add(entity2);
 
 		printEntities(entities);
 
@@ -38,13 +38,13 @@ class Check
 		printEntities(Unserializer.run(outputWorld.entities));
 	}
 
-	static private function printEntities(entities: Array<Array<Component>>): Void
+	static private function printEntities(entities: EntityList): Void
 	{
 		trace("print entities");
-		for (entity in entities)
+		for (entity in entities.entities.value)
 		{
-			trace("-- entity");
-			for (component in entity)
+			trace('-- entity ${entity.id}');
+			for (component in entity.components.value)
 			{
 				trace('---- component: ${component} ${haxe.Json.stringify(component)}');
 			}
