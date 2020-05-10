@@ -10,6 +10,8 @@ class Check
 {
 	static public function main(): Void
 	{
+		trace("Check.main");
+
 		var entities = new Array<Array<Dynamic>>();
 
 		var entity1 = new Array<Dynamic>();
