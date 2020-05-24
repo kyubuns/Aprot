@@ -2,14 +2,11 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
-      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
-      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Aproto.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="Resources" t="Include">
-          <e p="lua.txt" t="Include" />
-        </e>
         <e p="Scripts" t="Include">
-          <e p="Proto" t="Include">
+          <e p="Aproto" t="Include">
+            <e p="Aproto.asmdef" t="Include" />
             <e p="Test.cs" t="Include" />
           </e>
         </e>
@@ -17,6 +14,7 @@
           <e p="CHANGELOG.txt" t="Include" />
           <e p="Editor" t="Include">
             <e p="ExampleConfig.cs" t="Include" />
+            <e p="XLuaUnity.EditorCondig.asmdef" t="Include" />
           </e>
           <e p="Gen" t="Include">
             <e p="DelegatesGensBridge.cs" t="Include" />
@@ -61,6 +59,7 @@
                 <e p="TemplateCommon.lua.txt" t="Include" />
               </e>
               <e p="TemplateRef.cs" t="Include" />
+              <e p="XLuaUnity.Editor.asmdef" t="Include" />
             </e>
             <e p="GenAttributes.cs" t="Include" />
             <e p="GenericDelegateBridge.cs" t="Include" />
@@ -85,12 +84,16 @@
             <e p="TypeExtensions.cs" t="Include" />
             <e p="Utils.cs" t="Include" />
           </e>
+          <e p="XLuaUnity.asmdef" t="Include" />
         </e>
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
       <e p="Temp/bin" t="ExcludeRecursive" />
       <e p="Unity.sln" t="IncludeFlat" />
+      <e p="XLuaUnity.csproj" t="IncludeRecursive" />
+      <e p="XLuaUnity.Editor.csproj" t="IncludeRecursive" />
+      <e p="XLuaUnity.EditorCondig.csproj" t="IncludeRecursive" />
     </e>
     <e p="$USER_HOME$/Library/Caches/Rider2019.3/extResources" t="IncludeRecursive" />
     <e p="$USER_HOME$/Library/Caches/Rider2019.3/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_Unity.-1494858996.00" t="ExcludeRecursive" />

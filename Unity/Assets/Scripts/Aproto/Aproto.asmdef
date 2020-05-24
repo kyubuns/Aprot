@@ -1,0 +1,15 @@
+{
+    "name": "Aproto",
+    "references": [
+        "GUID:7b73150a851d748439fa02c6c8605adc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
