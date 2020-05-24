@@ -15,7 +15,7 @@ class Engine
 		{
 			system.updateInternal(context, entities);
 		}
-		var outputWorld = new OutputWorld<TOutputContext>(outputContext, Serializer.run(entities));
+		var outputWorld = new OutputWorld<TOutputContext>(outputContext, entities);
 		return outputWorld;
 	}
 }

@@ -26,7 +26,7 @@ class Check
 		var outputString = Main.update(serializedInputContext, serializedEntities);
 		var outputWorld = Unserializer.run(outputString);
 
-		printEntities(Unserializer.run(outputWorld.entities));
+		printEntities(outputWorld.entities);
 	}
 
 	static private function printEntities(entities: EntityList): Void

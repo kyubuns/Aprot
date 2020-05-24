@@ -2,12 +2,12 @@ package aprotHx;
 
 class OutputWorld<TOutputContext>
 {
-	public function new(outputContext: TOutputContext, entities: String)
+	public function new(outputContext: TOutputContext, entities: EntityList)
 	{
 		this.outputContext = outputContext;
 		this.entities = entities;
 	}
 
 	public var outputContext: TOutputContext;
-	public var entities: String;
+	public var entities: EntityList;
 }
