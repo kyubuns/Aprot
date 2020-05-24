@@ -4,3 +4,4 @@ proto.Main
 --macro nullSafety("proto", Strict)
 -lua out/lua/main.lua
 -D lua-vanilla
+-cmd cp out/lua/main.lua ../Unity/Assets/Resources/lua.txt
