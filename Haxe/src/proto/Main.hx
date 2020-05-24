@@ -40,11 +40,12 @@ class Main
 		return Serializer.run(entities);
 	}
 
-	static public function update(serializedInputContext: String, serializedEntities: String): String
+	static public function update(serializedInputContext: String, serializedEntities: String): Array<String>
 	{
 		var inputContext = cast(Unserializer.run(serializedInputContext), InputContext);
 		var entities = cast(Unserializer.run(serializedEntities), EntityList);
-		var outputWorld = Engine.update(inputContext, entities, createOutputContext(), createSystems());
-		return Serializer.run(outputWorld);
+		var outputContext = createOutputContext();
+		Engine.update(inputContext, entities, outputContext, createSystems());
+		return [Serializer.run(outputContext), Serializer.run(entities)];
 	}
 }

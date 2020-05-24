@@ -5,6 +5,7 @@ import haxe.Serializer;
 import haxe.Unserializer;
 import aprotHx.type.*;
 import proto.inputContext.*;
+import proto.outputContext.*;
 import proto.component.*;
 
 class Check
@@ -24,9 +25,10 @@ class Check
 		var serializedEntities = Serializer.run(entities);
 		var serializedInputContext = Serializer.run(inputContext);
 		var outputString = Main.update(serializedInputContext, serializedEntities);
-		var outputWorld = Unserializer.run(outputString);
+		var outputContext = cast(Unserializer.run(outputString[0]), OutputContext);
+		var updatedEntities = cast(Unserializer.run(outputString[1]), EntityList);
 
-		printEntities(outputWorld.entities);
+		printEntities(updatedEntities);
 	}
 
 	static private function printEntities(entities: EntityList): Void
