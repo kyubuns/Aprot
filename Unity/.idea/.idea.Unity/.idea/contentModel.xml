@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Resources" t="Include">
+          <e p="lua.txt" t="Include" />
+        </e>
+        <e p="Scripts" t="Include">
+          <e p="Proto" t="Include">
+            <e p="Test.cs" t="Include" />
+          </e>
+        </e>
+        <e p="XLua" t="Include">
+          <e p="CHANGELOG.txt" t="Include" />
+          <e p="Editor" t="Include">
+            <e p="ExampleConfig.cs" t="Include" />
+          </e>
+          <e p="Gen" t="Include">
+            <e p="DelegatesGensBridge.cs" t="Include" />
+            <e p="EnumWrap.cs" t="Include" />
+            <e p="link.xml" t="Include" />
+            <e p="PackUnpack.cs" t="Include" />
+            <e p="WrapPusher.cs" t="Include" />
+            <e p="XLuaGenAutoRegister.cs" t="Include" />
+          </e>
+          <e p="Resources" t="Include">
+            <e p="perf" t="Include">
+              <e p="memory.lua.txt" t="Include" />
+              <e p="profiler.lua.txt" t="Include" />
+            </e>
+            <e p="XLua" t="Include">
+              <e p="util.lua.txt" t="Include" />
+            </e>
+          </e>
+          <e p="Src" t="Include">
+            <e p="CodeEmit.cs" t="Include" />
+            <e p="CopyByValue.cs" t="Include" />
+            <e p="DelegateBridge.cs" t="Include" />
+            <e p="Editor" t="Include">
+              <e p="Generator.cs" t="Include" />
+              <e p="Hotfix.cs" t="Include" />
+              <e p="LinkXmlGen" t="Include">
+                <e p="LinkXmlGen.cs" t="Include" />
+                <e p="LinkXmlGen.tpl.txt" t="Include" />
+              </e>
+              <e p="Template" t="Include">
+                <e p="LuaClassWrap.tpl.txt" t="Include" />
+                <e p="LuaClassWrapGCM.tpl.txt" t="Include" />
+                <e p="LuaDelegateBridge.tpl.txt" t="Include" />
+                <e p="LuaDelegateWrap.tpl.txt" t="Include" />
+                <e p="LuaEnumWrap.tpl.txt" t="Include" />
+                <e p="LuaEnumWrapGCM.tpl.txt" t="Include" />
+                <e p="LuaInterfaceBridge.tpl.txt" t="Include" />
+                <e p="LuaRegister.tpl.txt" t="Include" />
+                <e p="LuaRegisterGCM.tpl.txt" t="Include" />
+                <e p="LuaWrapPusher.tpl.txt" t="Include" />
+                <e p="PackUnpack.tpl.txt" t="Include" />
+                <e p="TemplateCommon.lua.txt" t="Include" />
+              </e>
+              <e p="TemplateRef.cs" t="Include" />
+            </e>
+            <e p="GenAttributes.cs" t="Include" />
+            <e p="GenericDelegateBridge.cs" t="Include" />
+            <e p="InternalGlobals.cs" t="Include" />
+            <e p="LuaBase.cs" t="Include" />
+            <e p="LuaDLL.cs" t="Include" />
+            <e p="LuaEnv.cs" t="Include" />
+            <e p="LuaException.cs" t="Include" />
+            <e p="LuaFunction.cs" t="Include" />
+            <e p="LuaTable.cs" t="Include" />
+            <e p="MethodWarpsCache.cs" t="Include" />
+            <e p="ObjectCasters.cs" t="Include" />
+            <e p="ObjectPool.cs" t="Include" />
+            <e p="ObjectTranslator.cs" t="Include" />
+            <e p="ObjectTranslatorPool.cs" t="Include" />
+            <e p="RawObject.cs" t="Include" />
+            <e p="SignatureLoader.cs" t="Include" />
+            <e p="StaticLuaCallbacks.cs" t="Include" />
+            <e p="TemplateEngine" t="Include">
+              <e p="TemplateEngine.cs" t="Include" />
+            </e>
+            <e p="TypeExtensions.cs" t="Include" />
+            <e p="Utils.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="Temp/bin" t="ExcludeRecursive" />
+      <e p="Unity.sln" t="IncludeFlat" />
+    </e>
+    <e p="$USER_HOME$/Library/Caches/Rider2019.3/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.3/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_Unity.-1494858996.00" t="ExcludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/consoles/ide" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/extensions" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/scratches" t="IncludeRecursive" />
+  </component>
+</project>
