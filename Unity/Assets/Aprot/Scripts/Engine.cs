@@ -1,12 +1,6 @@
-﻿using UnityEngine;
-
-namespace Aprot
+﻿namespace Aprot
 {
-    public class Engine : MonoBehaviour
+    public class Engine
     {
-        void Start()
-        {
-            Debug.Log("Start Aprot");
-        }
     }
 }
