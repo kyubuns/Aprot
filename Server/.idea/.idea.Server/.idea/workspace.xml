@@ -15,9 +15,15 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/F0E04A73-D8E4-496A-8813-BB01FBA34CD2/E/FileSystemWatcher.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/F0E04A73-D8E4-496A-8813-BB01FBA34CD2/2e/a0c459e7/NotifyFilters.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/F0E04A73-D8E4-496A-8813-BB01FBA34CD2/70/fe370a14/FileSystemEventHandler.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/38D3CEF1-4C5A-4FC9-A92D-E0991034BC1A/da/3ea08be4/WebSocketBehavior.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/231CAC4C-D307-4AEA-83F1-76589F64BFB3/2F8/Path.Unix.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/231CAC4C-D307-4AEA-83F1-76589F64BFB3/8F/MarshalByRefObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/E8A4C5A4-E329-4C01-BB95-7D64C089FB1C/3e/3d1626f5/WebSocketServer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2EBFE8D6-26F7-4EF5-876E-0DD8CED2CD86/5/Component.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -84,7 +90,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1590307370026</updated>
-      <workItem from="1590307371636" duration="1898000" />
+      <workItem from="1590307371636" duration="4465000" />
     </task>
     <servers />
   </component>
@@ -94,22 +100,22 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="null" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="WindowStateProjectService">
-    <state width="1638" height="280" key="GridCell.Tab.0.bottom" timestamp="1590309228637">
+    <state width="1078" height="280" key="GridCell.Tab.0.bottom" timestamp="1590309993198">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="280" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1590309228637" />
-    <state width="1638" height="280" key="GridCell.Tab.0.center" timestamp="1590309228637">
+    <state width="1078" height="280" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1590309993198" />
+    <state width="1078" height="280" key="GridCell.Tab.0.center" timestamp="1590309993197">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="280" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1590309228637" />
-    <state width="1638" height="280" key="GridCell.Tab.0.left" timestamp="1590309228636">
+    <state width="1078" height="280" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1590309993197" />
+    <state width="1078" height="280" key="GridCell.Tab.0.left" timestamp="1590309993196">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="280" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1590309228636" />
-    <state width="1638" height="280" key="GridCell.Tab.0.right" timestamp="1590309228637">
+    <state width="1078" height="280" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1590309993196" />
+    <state width="1078" height="280" key="GridCell.Tab.0.right" timestamp="1590309993197">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1638" height="280" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1590309228637" />
+    <state width="1078" height="280" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1590309993197" />
     <state x="822" y="248" key="search.everywhere.popup" timestamp="1590307995582">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
