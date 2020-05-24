@@ -23,7 +23,8 @@ class Main
 	static public function update(serializedInputContext: String, serializedEntities: String): String
 	{
 		var inputContext = cast(Unserializer.run(serializedInputContext), InputContext);
-		var outputWorld = Engine.update(inputContext, serializedEntities, createOutputContext(), createSystems());
+		var entities = cast(Unserializer.run(serializedEntities), EntityList);
+		var outputWorld = Engine.update(inputContext, entities, createOutputContext(), createSystems());
 		return Serializer.run(outputWorld);
 	}
 }
