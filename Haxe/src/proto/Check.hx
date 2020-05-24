@@ -13,17 +13,7 @@ class Check
 	{
 		trace("Check.main");
 
-		var entities = new EntityList();
-
-		var entity1 = new Array<Component>();
-		entity1.push(new Transform(new Vector2(1, 5)));
-		entity1.push(new Velocity(new Vector2(2, 2)));
-		entities.add(entity1);
-
-		var entity2 = new Array<Component>();
-
-		entity2.push(new Transform(new Vector2(9, 2)));
-		entities.add(entity2);
+		var entities = Unserializer.run(Main.createInitEntities());
 
 		printEntities(entities);
 
