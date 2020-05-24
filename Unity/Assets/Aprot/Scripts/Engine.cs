@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Text;
+using UnityEngine;
 using WebSocketSharp;
+using XLua;
 
 namespace Aprot
 {
@@ -17,6 +20,25 @@ namespace Aprot
 
             Debug.Log("Connecting...");
             webSocket.Connect();
+        }
+
+        public static void LuaTest()
+        {
+            var luaSource = Resources.Load<TextAsset>("lua").text;
+
+            var luaEnv = new LuaEnv();
+            luaEnv.AddLoader((ref string filepath) =>
+            {
+                if (filepath == "bit" || filepath == "bit32") return Encoding.UTF8.GetBytes("return bit");
+                throw new Exception($"Unknown require {filepath}");
+            });
+
+            var exports = (LuaTable) luaEnv.DoString(luaSource)[0];
+
+            var nameSpace = exports.Get<LuaTable>("proto");
+            var mainClass = nameSpace.Get<LuaTable>("Main");
+
+            Debug.Log((string) mainClass.Get<LuaFunction>("createInitEntities").Call()[0]);
         }
     }
 }

@@ -20,6 +20,8 @@ namespace Proto
 
                 Engine.ConnectDevelopmentServer(inputField.text);
             });
+
+            Engine.LuaTest();
         }
     }
 }

@@ -9,6 +9,7 @@ import proto.system.*;
 import proto.outputContext.*;
 import proto.component.*;
 
+@:expose
 class Main
 {
 	static private function createOutputContext(): OutputContext
