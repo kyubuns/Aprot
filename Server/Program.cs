@@ -17,7 +17,18 @@ namespace Server
             var webServer = new WebServer(5555, fileWatcher);
             webServer.Start();
             Console.WriteLine($"Start Server {webServer.Url}");
+            await Task.WhenAny(FileWatch(fileWatcher, webServer), WaitKey());
+            webServer.Close();
+            Console.WriteLine("Finish");
+        }
 
+        private static async Task WaitKey()
+        {
+            await Task.Run(() => Console.ReadLine());
+        }
+
+        private static async Task FileWatch(FileWatcher fileWatcher, WebServer webServer)
+        {
             while (true)
             {
                 await fileWatcher.WaitForUpdate();
@@ -32,6 +43,7 @@ namespace Server
         private readonly int port;
         private readonly FileWatcher fileWatcher;
         private readonly List<IWebSocketConnection> sockets = new List<IWebSocketConnection>();
+        private WebSocketServer webSocketServer;
 
         public string Url => $"ws://{GetLocalIp()}:{port}";
 
@@ -43,7 +55,7 @@ namespace Server
 
         public void Start()
         {
-            var webSocketServer = new WebSocketServer($"ws://0.0.0.0:{port}");
+            webSocketServer = new WebSocketServer($"ws://0.0.0.0:{port}");
 
             webSocketServer.Start(socket =>
             {
@@ -72,6 +84,11 @@ namespace Server
             {
                 socket.Send(fileWatcher.Current);
             }
+        }
+
+        public void Close()
+        {
+            webSocketServer.Dispose();
         }
 
         // https://stackoverflow.com/questions/6803073/get-local-ip-address
