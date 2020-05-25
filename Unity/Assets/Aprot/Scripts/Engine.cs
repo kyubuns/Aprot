@@ -1,31 +1,38 @@
 ﻿using System;
 using System.Text;
+using proto;
+using proto.inputContext;
+using proto.outputContext;
 using UnityEngine;
 using WebSocketSharp;
 using XLua;
 
 namespace Aprot
 {
-    public class Engine
+    public class Engine : IDisposable
     {
-        public static void ConnectDevelopmentServer(string url)
+        private LuaFunction updateFunction;
+        private string currentEntities;
+        private WebSocket webSocket;
+
+        public void ConnectDevelopmentServer(string url)
         {
-            var webSocket = new WebSocket(url);
+            if (webSocket != null) webSocket.Close();
+
+            webSocket = new WebSocket(url);
             webSocket.Log.Level = LogLevel.Trace;
 
             webSocket.OnOpen += (sender, e) => { Debug.Log($"OnOpen {sender}, {e}"); };
             webSocket.OnClose += (sender, e) => { Debug.Log($"OnClose {sender}, {e.Reason}"); };
-            webSocket.OnMessage += (sender, e) => { Debug.Log($"OnMessage {sender} {e}"); };
+            webSocket.OnMessage += (sender, e) => { RunLuaScript(e.Data); };
             webSocket.OnError += (sender, e) => { Debug.LogError($"OnError {sender} {e}"); };
 
             Debug.Log("Connecting...");
             webSocket.Connect();
         }
 
-        public static void LuaTest()
+        private void RunLuaScript(string source)
         {
-            var luaSource = Resources.Load<TextAsset>("lua").text;
-
             var luaEnv = new LuaEnv();
             luaEnv.AddLoader((ref string filepath) =>
             {
@@ -33,12 +40,36 @@ namespace Aprot
                 throw new Exception($"Unknown require {filepath}");
             });
 
-            var exports = (LuaTable) luaEnv.DoString(luaSource)[0];
+            var exports = (LuaTable) luaEnv.DoString(source)[0];
 
             var nameSpace = exports.Get<LuaTable>("proto");
             var mainClass = nameSpace.Get<LuaTable>("Main");
 
-            Debug.Log((string) mainClass.Get<LuaFunction>("createInitEntities").Call()[0]);
+            updateFunction?.Dispose();
+            updateFunction = mainClass.Get<LuaFunction>("update");
+            currentEntities = (string) mainClass.Get<LuaFunction>("createInitEntities").Call(new object[] { }, new[] { typeof(string) })[0];
+            Debug.Log($"Init: {currentEntities}");
+        }
+
+        public OutputContext Update(InputContext inputContext)
+        {
+            if (updateFunction == null)
+            {
+                return null;
+            }
+
+            var serializedInputContext = Bridge.serializeInputContext(inputContext);
+            var output = (string[]) updateFunction.Call(new object[] { serializedInputContext, currentEntities }, new[] { typeof(string[]) })[0];
+            var serializedOutputContext = output[0];
+            currentEntities = output[1];
+            Debug.Log($"Update: {currentEntities}");
+            return Bridge.deserializeOutputContext(serializedOutputContext);
+        }
+
+        public void Dispose()
+        {
+            updateFunction?.Dispose();
+            webSocket?.Close();
         }
     }
 }
