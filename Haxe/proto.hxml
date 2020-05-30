@@ -4,3 +4,4 @@ proto.Main
 --macro nullSafety("proto", Strict)
 --main proto.Check
 --interp
+-lib hxbit

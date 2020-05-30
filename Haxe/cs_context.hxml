@@ -5,4 +5,5 @@ proto.Bridge
 -cs out/cs/AprotContext
 -D no_root
 -D net-ver=40
+-lib hxbit
 -cmd cp out/cs/AprotContext/bin/AprotContext.dll ../Unity/Assets/Generated/

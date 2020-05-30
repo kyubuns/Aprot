@@ -18,7 +18,7 @@ class RefEntityBuilder
 				buildRefEntity(types);
 
 			default:
-				throw 'assert';
+				throw 'assert ${Context.getLocalType()}';
 		}
 	}
 

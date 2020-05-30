@@ -1,6 +1,6 @@
 package aprotHx.type;
 
-class Vector2
+class Vector2 implements hxbit.Serializable
 {
 	public function new(x: Float, y: Float)
 	{
@@ -8,6 +8,6 @@ class Vector2
 		this.y = y;
 	}
 
-	public var x: Float;
-	public var y: Float;
+	@:s public var x: Float;
+	@:s public var y: Float;
 }
