@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.IO;
 using System.Threading.Tasks;
-using Fleck;
+using WebSocketSharp;
+using WebSocketSharp.Server;
+using ErrorEventArgs = WebSocketSharp.ErrorEventArgs;
 
 namespace Server
 {
@@ -42,7 +43,6 @@ namespace Server
     {
         private readonly int port;
         private readonly FileWatcher fileWatcher;
-        private readonly List<IWebSocketConnection> sockets = new List<IWebSocketConnection>();
         private WebSocketServer webSocketServer;
 
         public string Url => $"ws://{GetLocalIp()}:{port}";
@@ -56,39 +56,18 @@ namespace Server
         public void Start()
         {
             webSocketServer = new WebSocketServer($"ws://0.0.0.0:{port}");
-
-            webSocketServer.Start(socket =>
-            {
-                socket.OnOpen += () =>
-                {
-                    Console.WriteLine("OnOpen");
-                    socket.Send(fileWatcher.Current);
-                    sockets.Add(socket);
-                };
-                socket.OnClose += () =>
-                {
-                    Console.WriteLine("OnClose");
-                    sockets.Remove(socket);
-                };
-                socket.OnError += e =>
-                {
-                    Console.WriteLine($"OnError {e}");
-                    sockets.Remove(socket);
-                };
-            });
+            webSocketServer.AddWebSocketService("/aprot", () => new AprotServer(fileWatcher));
+            webSocketServer.Start();
         }
 
         public void Broadcast()
         {
-            foreach (var socket in sockets)
-            {
-                socket.Send(fileWatcher.Current);
-            }
+            webSocketServer.WebSocketServices["/aprot"].Sessions.Broadcast(fileWatcher.Current);
         }
 
         public void Close()
         {
-            webSocketServer.Dispose();
+            webSocketServer.Stop();
         }
 
         // https://stackoverflow.com/questions/6803073/get-local-ip-address
@@ -101,6 +80,37 @@ namespace Server
                 if (socket.LocalEndPoint is IPEndPoint endPoint) localIp = endPoint.Address.ToString();
             }
             return localIp;
+        }
+    }
+
+    public class AprotServer : WebSocketBehavior
+    {
+        private readonly FileWatcher fileWatcher;
+
+        public AprotServer(FileWatcher fileWatcher)
+        {
+            this.fileWatcher = fileWatcher;
+        }
+
+        protected override void OnOpen()
+        {
+            Console.WriteLine($"OnOpen");
+            Send(fileWatcher.Current);
+        }
+
+        protected override void OnMessage (MessageEventArgs e)
+        {
+            Console.WriteLine($"OnMessage {e.Data}");
+        }
+
+        protected override void OnError(ErrorEventArgs e)
+        {
+            Console.WriteLine($"OnError {e.Exception}");
+        }
+
+        protected override void OnClose(CloseEventArgs e)
+        {
+            Console.WriteLine($"OnClose {e.Reason}");
         }
     }
 
