@@ -44,17 +44,8 @@ class Main
 	{
 		var inputContext = cast(Unserializer.run(serializedInputContext), InputContext);
 		var entities = cast(Unserializer.run(serializedEntities), EntityList);
-		trace("update!!!!!!!!");
-		trace(entities);
 		var outputContext = createOutputContext();
 		Engine.update(inputContext, entities, outputContext, createSystems());
-		trace("1");
-		trace(outputContext);
-		var a = Serializer.run(outputContext);
-		trace("2");
-		trace(entities);
-		var b = Serializer.run(entities);
-		trace("3");
 		return [Serializer.run(outputContext), Serializer.run(entities)];
 	}
 }
