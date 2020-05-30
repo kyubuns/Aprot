@@ -29,7 +29,7 @@ class SystemBuilder
 		var createRefEntities = [];
 		for (refParamName in refParamNames)
 		{
-			createRefEntities.push(macro refComponents.push(entity.components.value.filter(x -> Std.is(x, $i{MacroUtil.getName(refParamName)}))));
+			createRefEntities.push(macro refComponents.push(entity.components.value.filter(x -> Std.isOfType(x, $i{MacroUtil.getName(refParamName)}))));
 		}
 
 		var refEntitiesInitializer = [];
