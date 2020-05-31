@@ -18,7 +18,10 @@ class Check
 		printEntities(entities);
 
 		var time = new Time(1.0);
-		var input = new Input(new Vector2(1.0, 0.0));
+		var v1 = new Vector2();
+		v1.x = 1;
+		v1.y = 0;
+		var input = new Input(v1);
 		var inputContext = new InputContext(time, input);
 
 		var serializedEntities = serializer.serialize(entities).toHex();

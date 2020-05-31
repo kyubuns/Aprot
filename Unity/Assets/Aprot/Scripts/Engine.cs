@@ -26,8 +26,8 @@ namespace Aprot
             // register classes
             var dummyRenderer = new proto.outputContext.Renderer(EmptyObject.EMPTY);
             dummyRenderer.queue = new ArrayWrapper_Vector2();
-            dummyRenderer.queue.value.push(new aprotHx.type.Vector2(1, 2));
-            var dummyOutputContext = new proto.outputContext.OutputContext(dummyRenderer);
+            dummyRenderer.queue.value.push(new aprotHx.type.Vector2());
+            var dummyOutputContext = new proto.outputContext.OutputContext();
         }
 
         public void ConnectDevelopmentServer(string url)
