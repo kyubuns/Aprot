@@ -2,12 +2,12 @@ package aprotHx;
 
 import aprotHx.type.ArrayWrapper;
 
-class EntityList
+class EntityList implements hxbit.Serializable
 {
 	public function new() {}
 
-	public var nextId: Int = 0;
-	public var entities: ArrayWrapper<Entity> = new ArrayWrapper<Entity>();
+	@:s public var nextId: Int = 0;
+	@:s public var entities: ArrayWrapper<Entity> = new ArrayWrapper<Entity>();
 
 	public function add(components: Array<Component>): Entity
 	{

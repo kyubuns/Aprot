@@ -1,8 +1,6 @@
 package proto;
 
 import aprotHx.*;
-import haxe.Serializer;
-import haxe.Unserializer;
 import aprotHx.type.*;
 import proto.inputContext.*;
 import proto.outputContext.*;
@@ -14,7 +12,8 @@ class Check
 	{
 		trace("Check.main");
 
-		var entities = Unserializer.run(Main.createInitEntities());
+		var serializer = new hxbit.Serializer();
+		var entities = serializer.unserialize(Main.createInitEntities(), EntityList);
 
 		printEntities(entities);
 
@@ -22,11 +21,11 @@ class Check
 		var input = new Input(new Vector2(1.0, 0.0));
 		var inputContext = new InputContext(time, input);
 
-		var serializedEntities = Serializer.run(entities);
-		var serializedInputContext = Serializer.run(inputContext);
-		var outputString = Main.update(serializedInputContext, serializedEntities);
-		var outputContext = cast(Unserializer.run(outputString[0]), OutputContext);
-		var updatedEntities = cast(Unserializer.run(outputString[1]), EntityList);
+		var serializedEntities = serializer.serialize(entities);
+		var serializedInputContext = serializer.serialize(inputContext);
+		var output = Main.update(serializedInputContext, serializedEntities);
+		var outputContext = serializer.unserialize(output[0], OutputContext);
+		var updatedEntities = serializer.unserialize(output[1], EntityList);
 
 		printEntities(updatedEntities);
 	}

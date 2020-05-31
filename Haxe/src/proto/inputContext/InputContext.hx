@@ -1,6 +1,6 @@
 package proto.inputContext;
 
-class InputContext
+class InputContext implements hxbit.Serializable
 {
 	public function new(time: Time, input: Input)
 	{
@@ -8,6 +8,6 @@ class InputContext
 		this.input = input;
 	}
 
-	public var time: Time;
-	public var input: Input;
+	@:s public var time: Time;
+	@:s public var input: Input;
 }

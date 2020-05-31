@@ -1,24 +1,21 @@
 package proto;
 
-import haxe.Unserializer;
+import haxe.io.BytesData;
 import proto.inputContext.InputContext;
-import haxe.Serializer;
-import aprotHx.*;
-import aprotHx.type.*;
-import proto.system.*;
 import proto.outputContext.*;
-import proto.component.*;
 
 @:expose
 class Bridge
 {
-	static public function serializeInputContext(inputContext: InputContext): String
+	static public function serializeInputContext(inputContext: InputContext): BytesData
 	{
-		return Serializer.run(inputContext);
+		var serializer = new hxbit.Serializer();
+		return serializer.serialize(inputContext).getData();
 	}
 
-	static public function deserializeOutputContext(serializedOutputContext: String): OutputContext
+	static public function deserializeOutputContext(serializedOutputContext: BytesData): OutputContext
 	{
-		return cast(Unserializer.run(serializedOutputContext), OutputContext);
+		var serializer = new hxbit.Serializer();
+		return serializer.unserialize(haxe.io.Bytes.ofData(serializedOutputContext), OutputContext);
 	}
 }

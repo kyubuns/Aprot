@@ -1,11 +1,11 @@
 package proto.inputContext;
 
-class Time
+class Time implements hxbit.Serializable
 {
 	public function new(deltaTime: Float)
 	{
 		this.deltaTime = deltaTime;
 	}
 
-	public var deltaTime: Float;
+	@:s public var deltaTime: Float;
 }

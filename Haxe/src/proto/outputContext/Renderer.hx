@@ -2,9 +2,9 @@ package proto.outputContext;
 
 import aprotHx.type.*;
 
-class Renderer
+class Renderer implements hxbit.Serializable
 {
 	public function new() {}
 
-	public var queue: ArrayWrapper<Vector2> = new ArrayWrapper<Vector2>();
+	@:s public var queue: ArrayWrapper<Vector2> = new ArrayWrapper<Vector2>();
 }
