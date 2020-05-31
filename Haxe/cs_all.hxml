@@ -1,4 +1,5 @@
 -cp src
+proto.Main
 proto.Bridge
 --macro nullSafety("aprotHx", Strict)
 --macro nullSafety("proto", Strict)
