@@ -129,41 +129,49 @@ namespace Server
         public Task WaitForUpdate()
         {
             var taskCompletionSource = new TaskCompletionSource<bool>();
-            var watcher = new FileSystemWatcher();
-            watcher.IncludeSubdirectories = true;
-            Console.WriteLine($"Path.GetDirectoryName(filePath) = {Path.GetDirectoryName(filePath)}");
-            Console.WriteLine($"Path.GetFileName(filePath) = {Path.GetFileName(filePath)}");
-            watcher.Path = Path.GetDirectoryName(filePath);
-            watcher.Filter = Path.GetFileName(filePath);
-            watcher.NotifyFilter = (NotifyFilters.LastAccess
-                                    | NotifyFilters.LastWrite
-                                    | NotifyFilters.FileName
-                                    | NotifyFilters.DirectoryName
-                                    | NotifyFilters.CreationTime
-                                    | NotifyFilters.Size);
-
-            void OnUpdate(object sender, FileSystemEventArgs e)
+            try
             {
-                Console.WriteLine($"OnUpdate {sender}, {e.Name} {e.ChangeType} {e.FullPath}");
-                try
+                var watcher = new FileSystemWatcher();
+                watcher.IncludeSubdirectories = true;
+                Console.WriteLine($"Path.GetDirectoryName(filePath) = {Path.GetDirectoryName(filePath)}");
+                Console.WriteLine($"Path.GetFileName(filePath) = {Path.GetFileName(filePath)}");
+                watcher.Path = Path.GetDirectoryName(filePath);
+                watcher.Filter = Path.GetFileName(filePath);
+                watcher.NotifyFilter = (NotifyFilters.LastAccess
+                                        | NotifyFilters.LastWrite
+                                        | NotifyFilters.FileName
+                                        | NotifyFilters.DirectoryName
+                                        | NotifyFilters.CreationTime
+                                        | NotifyFilters.Size);
+
+                void OnUpdate(object sender, FileSystemEventArgs e)
                 {
-                    Current = File.ReadAllText(e.FullPath, Encoding.UTF8);
+                    Console.WriteLine($"OnUpdate {sender}, {e.Name} {e.ChangeType} {e.FullPath}");
+                    try
+                    {
+                        Current = File.ReadAllText(e.FullPath, Encoding.UTF8);
+                    }
+                    catch (FileNotFoundException)
+                    {
+                        Console.WriteLine("File not found");
+                        return;
+                    }
+                    watcher.Dispose();
+                    taskCompletionSource.SetResult(true);
                 }
-                catch (FileNotFoundException)
-                {
-                    Console.WriteLine("File not found");
-                    return;
-                }
-                watcher.Dispose();
+
+                watcher.Created += OnUpdate;
+                watcher.Changed += OnUpdate;
+                watcher.Deleted += OnUpdate;
+                watcher.Renamed += OnUpdate;
+
+                watcher.EnableRaisingEvents = true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
                 taskCompletionSource.SetResult(true);
             }
-
-            watcher.Created += OnUpdate;
-            watcher.Changed += OnUpdate;
-            watcher.Deleted += OnUpdate;
-            watcher.Renamed += OnUpdate;
-
-            watcher.EnableRaisingEvents = true;
             return taskCompletionSource.Task;
         }
     }
