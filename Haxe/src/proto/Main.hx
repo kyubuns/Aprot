@@ -27,8 +27,8 @@ class Main
 		var entities = new EntityList();
 
 		var entity1 = new Array<Component>();
-		entity1.push(new Transform(new Vector2(1, 5)));
-		entity1.push(new Velocity(new Vector2(2, 2)));
+		entity1.push(new Transform(new Vector2(-1, -5)));
+		entity1.push(new Velocity(new Vector2(0.1, 0.1)));
 		entities.add(entity1);
 
 		var entity2 = new Array<Component>();
@@ -44,7 +44,11 @@ class Main
 	{
 		var serializer = new hxbit.Serializer();
 		var inputContext = serializer.unserialize(haxe.io.Bytes.ofHex(serializedInputContext), InputContext);
-		var entities = serializer.unserialize(haxe.io.Bytes.ofHex(serializedEntities), EntityList);
+		trace('serializedEntities = $serializedEntities');
+		var tmp = haxe.io.Bytes.ofHex(serializedEntities);
+		trace('tmp = $tmp');
+		var entities = serializer.unserialize(tmp, EntityList);
+		trace('serializedEntities finish');
 		var outputContext = createOutputContext();
 		Engine.update(inputContext, entities, outputContext, createSystems());
 		return [

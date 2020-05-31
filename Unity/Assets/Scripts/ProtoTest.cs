@@ -50,6 +50,7 @@ namespace Proto
             var input = new proto.inputContext.Input(new Vector2(0, 0));
             var inputContext = new InputContext(time, input);
             var outputContext = engine.Update(inputContext);
+            if (outputContext?.renderer?.queue == null) return;
 
             var renderQueue = outputContext.renderer.queue.toTyped();
             foreach (var (x, i) in renderQueue.Select((x, i) => (x, i)))

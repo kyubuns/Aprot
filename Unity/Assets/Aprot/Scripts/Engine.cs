@@ -17,6 +17,7 @@ namespace Aprot
         private string currentEntities;
         private WebSocket webSocket;
         private byte[] bit32lua;
+        private string requestUpdate;
 
         public Engine()
         {
@@ -38,7 +39,7 @@ namespace Aprot
 
             webSocket.OnOpen += (sender, e) => { Debug.Log($"OnOpen {sender}, {e}"); };
             webSocket.OnClose += (sender, e) => { Debug.Log($"OnClose {sender}, {e.Reason}"); };
-            webSocket.OnMessage += (sender, e) => { RunLuaScript(e.Data); };
+            webSocket.OnMessage += (sender, e) => { requestUpdate = e.Data; };
             webSocket.OnError += (sender, e) => { Debug.LogError($"OnError {sender} {e.Exception}"); };
 
             Debug.Log("Connecting...");
@@ -70,6 +71,12 @@ namespace Aprot
 
         public OutputContext Update(InputContext inputContext)
         {
+            if (requestUpdate != null)
+            {
+                RunLuaScript(requestUpdate);
+                requestUpdate = null;
+            }
+
             if (updateFunction == null)
             {
                 return null;
