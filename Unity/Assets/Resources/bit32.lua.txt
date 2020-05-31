@@ -542,5 +542,5 @@ function M.bit.bswap(x)
   return bit_tobit(bswap(x % MOD))
 end
 
-return M
+return M.bit32
 
