@@ -22,7 +22,7 @@ class Main
 		return [new Dummy1System(), new RenderSystem()];
 	}
 
-	static public function createInitEntities(): BytesData
+	static public function createInitEntities(): String
 	{
 		var entities = new EntityList();
 
@@ -37,19 +37,20 @@ class Main
 		entities.add(entity2);
 
 		var serializer = new hxbit.Serializer();
-		return serializer.serialize(entities).getData();
+		return serializer.serialize(entities).toHex();
 	}
 
-	static public function update(serializedInputContext: BytesData, serializedEntities: BytesData): Array<BytesData>
+	static public function update(serializedInputContext: String, serializedEntities: String): Array<String>
 	{
 		var serializer = new hxbit.Serializer();
-		var inputContext = serializer.unserialize(haxe.io.Bytes.ofData(serializedInputContext), InputContext);
-		var entities = serializer.unserialize(haxe.io.Bytes.ofData(serializedEntities), EntityList);
+		var inputContext = serializer.unserialize(haxe.io.Bytes.ofHex(serializedInputContext), InputContext);
+		var entities = serializer.unserialize(haxe.io.Bytes.ofHex(serializedEntities), EntityList);
 		var outputContext = createOutputContext();
 		Engine.update(inputContext, entities, outputContext, createSystems());
 		return [
-			serializer.serialize(outputContext).getData(),
-			serializer.serialize(entities).getData()
+			"dummy",
+			serializer.serialize(outputContext).toHex(),
+			serializer.serialize(entities).toHex()
 		];
 	}
 }

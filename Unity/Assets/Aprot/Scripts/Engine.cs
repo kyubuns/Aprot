@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Text;
+using haxe.lang;
+using haxe.root;
 using proto;
 using proto.inputContext;
 using proto.outputContext;
@@ -12,13 +14,19 @@ namespace Aprot
     public class Engine : IDisposable
     {
         private LuaFunction updateFunction;
-        private byte[] currentEntities;
+        private string currentEntities;
         private WebSocket webSocket;
         private byte[] bit32lua;
 
         public Engine()
         {
             bit32lua = Resources.Load<TextAsset>("bit32.lua").bytes;
+
+            // register classes
+            var dummyRenderer = new proto.outputContext.Renderer(EmptyObject.EMPTY);
+            dummyRenderer.queue = new ArrayWrapper_Vector2();
+            dummyRenderer.queue.value.push(new aprotHx.type.Vector2(1, 2));
+            var dummyOutputContext = new proto.outputContext.OutputContext(dummyRenderer);
         }
 
         public void ConnectDevelopmentServer(string url)
@@ -54,8 +62,10 @@ namespace Aprot
 
             updateFunction?.Dispose();
             updateFunction = mainClass.Get<LuaFunction>("update");
-            currentEntities = (byte[]) mainClass.Get<LuaFunction>("createInitEntities").Call(new object[] { }, new[] { typeof(byte[]) })[0];
+            currentEntities = (string) mainClass.Get<LuaFunction>("createInitEntities").Call(new object[] { }, new[] { typeof(string) })[0];
             Debug.Log($"Init: {currentEntities}");
+
+            Debug.Log($"CsIn: {proto.Main.createInitEntities()}");
         }
 
         public OutputContext Update(InputContext inputContext)
@@ -66,7 +76,7 @@ namespace Aprot
             }
 
             var serializedInputContext = Bridge.serializeInputContext(inputContext);
-            var output = (byte[][]) updateFunction.Call(new object[] { serializedInputContext, currentEntities }, new[] { typeof(byte[]) })[0];
+            var output = (string[]) updateFunction.Call(new object[] { serializedInputContext, currentEntities }, new[] { typeof(string[]) })[0];
             var serializedOutputContext = output[0];
             currentEntities = output[1];
             Debug.Log($"Update: {currentEntities}");

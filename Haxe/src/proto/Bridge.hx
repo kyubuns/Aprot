@@ -7,15 +7,15 @@ import proto.outputContext.*;
 @:expose
 class Bridge
 {
-	static public function serializeInputContext(inputContext: InputContext): BytesData
+	static public function serializeInputContext(inputContext: InputContext): String
 	{
 		var serializer = new hxbit.Serializer();
-		return serializer.serialize(inputContext).getData();
+		return serializer.serialize(inputContext).toHex();
 	}
 
-	static public function deserializeOutputContext(serializedOutputContext: BytesData): OutputContext
+	static public function deserializeOutputContext(serializedOutputContext: String): OutputContext
 	{
 		var serializer = new hxbit.Serializer();
-		return serializer.unserialize(haxe.io.Bytes.ofData(serializedOutputContext), OutputContext);
+		return serializer.unserialize(haxe.io.Bytes.ofHex(serializedOutputContext), OutputContext);
 	}
 }
