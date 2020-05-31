@@ -79,6 +79,7 @@ namespace Aprot
             var output = (string[]) updateFunction.Call(new object[] { serializedInputContext, currentEntities }, new[] { typeof(string[]) })[0];
             var serializedOutputContext = output[0];
             currentEntities = output[1];
+            Debug.Log($"Update: {currentEntities}");
             return Bridge.deserializeOutputContext(serializedOutputContext);
         }
 
