@@ -12,8 +12,14 @@ namespace Aprot
     public class Engine : IDisposable
     {
         private LuaFunction updateFunction;
-        private string currentEntities;
+        private byte[] currentEntities;
         private WebSocket webSocket;
+        private byte[] bit32lua;
+
+        public Engine()
+        {
+            bit32lua = Resources.Load<TextAsset>("bit32.lua").bytes;
+        }
 
         public void ConnectDevelopmentServer(string url)
         {
@@ -25,7 +31,7 @@ namespace Aprot
             webSocket.OnOpen += (sender, e) => { Debug.Log($"OnOpen {sender}, {e}"); };
             webSocket.OnClose += (sender, e) => { Debug.Log($"OnClose {sender}, {e.Reason}"); };
             webSocket.OnMessage += (sender, e) => { RunLuaScript(e.Data); };
-            webSocket.OnError += (sender, e) => { Debug.LogError($"OnError {sender} {e}"); };
+            webSocket.OnError += (sender, e) => { Debug.LogError($"OnError {sender} {e.Exception}"); };
 
             Debug.Log("Connecting...");
             webSocket.Connect();
@@ -36,7 +42,8 @@ namespace Aprot
             var luaEnv = new LuaEnv();
             luaEnv.AddLoader((ref string filepath) =>
             {
-                if (filepath == "bit" || filepath == "bit32") return Encoding.UTF8.GetBytes("return bit");
+                if (filepath == "bit") return Encoding.UTF8.GetBytes("return");
+                if (filepath == "bit32") return bit32lua;
                 throw new Exception($"Unknown require {filepath}");
             });
 
@@ -47,7 +54,7 @@ namespace Aprot
 
             updateFunction?.Dispose();
             updateFunction = mainClass.Get<LuaFunction>("update");
-            currentEntities = (string) mainClass.Get<LuaFunction>("createInitEntities").Call(new object[] { }, new[] { typeof(string) })[0];
+            currentEntities = (byte[]) mainClass.Get<LuaFunction>("createInitEntities").Call(new object[] { }, new[] { typeof(byte[]) })[0];
             Debug.Log($"Init: {currentEntities}");
         }
 
@@ -59,7 +66,7 @@ namespace Aprot
             }
 
             var serializedInputContext = Bridge.serializeInputContext(inputContext);
-            var output = (string[]) updateFunction.Call(new object[] { serializedInputContext, currentEntities }, new[] { typeof(string[]) })[0];
+            var output = (byte[][]) updateFunction.Call(new object[] { serializedInputContext, currentEntities }, new[] { typeof(byte[]) })[0];
             var serializedOutputContext = output[0];
             currentEntities = output[1];
             Debug.Log($"Update: {currentEntities}");

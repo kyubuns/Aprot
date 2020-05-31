@@ -90,6 +90,7 @@
           </e>
         </e>
         <e p="Resources" t="Include">
+          <e p="bit32.lua.txt" t="Include" />
           <e p="lua.txt" t="Include" />
         </e>
         <e p="Scripts" t="Include">
