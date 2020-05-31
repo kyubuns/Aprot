@@ -63,10 +63,12 @@ namespace Aprot
 
             updateFunction?.Dispose();
             updateFunction = mainClass.Get<LuaFunction>("update");
-            currentEntities = (string) mainClass.Get<LuaFunction>("createInitEntities").Call(new object[] { }, new[] { typeof(string) })[0];
-            Debug.Log($"Init: {currentEntities}");
-
-            Debug.Log($"CsIn: {proto.Main.createInitEntities()}");
+            if (string.IsNullOrWhiteSpace(currentEntities))
+            {
+                currentEntities = (string) mainClass.Get<LuaFunction>("createInitEntities").Call(new object[] { }, new[] { typeof(string) })[0];
+                Debug.Log($"Init: {currentEntities}");
+                Debug.Log($"CsIn: {proto.Main.createInitEntities()}");
+            }
         }
 
         public OutputContext Update(InputContext inputContext)
