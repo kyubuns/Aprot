@@ -44,11 +44,7 @@ class Main
 	{
 		var serializer = new hxbit.Serializer();
 		var inputContext = serializer.unserialize(haxe.io.Bytes.ofHex(serializedInputContext), InputContext);
-		trace('serializedEntities = $serializedEntities');
-		var tmp = haxe.io.Bytes.ofHex(serializedEntities);
-		trace('tmp = $tmp');
-		var entities = serializer.unserialize(tmp, EntityList);
-		trace('serializedEntities finish');
+		var entities = serializer.unserialize(haxe.io.Bytes.ofHex(serializedEntities), EntityList);
 		var outputContext = createOutputContext();
 		Engine.update(inputContext, entities, outputContext, createSystems());
 		return [

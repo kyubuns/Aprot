@@ -55,7 +55,6 @@ namespace Proto
             var renderQueue = outputContext.renderer.queue.toTyped();
             foreach (var (x, i) in renderQueue.Select((x, i) => (x, i)))
             {
-                Debug.Log($"{x.x}, {x.y}");
                 if (boxCache.Count <= i)
                 {
                     var newBox = GameObject.Instantiate(box);

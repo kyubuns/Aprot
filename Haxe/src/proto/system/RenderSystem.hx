@@ -12,11 +12,9 @@ class RenderSystem extends aprotHx.System
 
 	public function update(context: Context<InputContext, OutputContext>, entities: Array<RefEntity<Transform>>)
 	{
-		trace("RenderSystem.update");
 		var tmp = new Array<Vector2>();
 		for (entity in entities)
 		{
-			trace('  - ${entity.id}');
 			tmp.push(entity.transform.position);
 		}
 		context.output.renderer.queue.value = tmp;
