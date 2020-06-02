@@ -30,7 +30,7 @@ class RefEntityBuilder
 		var name = 'RefEntity_${types.map(x -> x.getClass().name).join("_")}';
 		var typeExists = try
 		{
-			Context.getType(name);
+			Context.getType('aprotHx.$name');
 			true;
 		} catch (_:Any) false;
 
@@ -87,7 +87,7 @@ class RefEntityBuilder
 			var meta: Metadata = [];
 			Context.defineType({
 				pos: pos,
-				pack: [],
+				pack: ['aprotHx'],
 				name: name,
 				params: typeParams,
 				meta: meta,
@@ -96,7 +96,7 @@ class RefEntityBuilder
 			});
 		}
 
-		return TPath({ pack: [], name: name, params: [for (t in types) TPType(t.toComplexType())] });
+		return TPath({ pack: ['aprotHx'], name: name, params: [for (t in types) TPType(t.toComplexType())] });
 	}
 }
 #end
