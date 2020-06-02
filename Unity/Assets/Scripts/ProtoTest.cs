@@ -47,7 +47,7 @@ namespace Proto
             if (engine == null) return;
 
             var time = new proto.inputContext.Time(Time.deltaTime);
-            var input = new proto.inputContext.Input(new Vector2());
+            var input = new proto.inputContext.Input(new Vector2(0, 0));
             var inputContext = new InputContext(time, input);
             var outputContext = engine.Update(inputContext);
             if (outputContext?.renderer?.queue == null) return;

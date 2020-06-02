@@ -13,8 +13,8 @@ class Main
 {
 	static private function createOutputContext(): OutputContext
 	{
-		var outputContext = new OutputContext();
-		return outputContext;
+		var renderer = new Renderer();
+		return new OutputContext(renderer);
 	}
 
 	static private function createSystems(): Array<System>
@@ -27,21 +27,13 @@ class Main
 		var entities = new EntityList();
 
 		var entity1 = new Array<Component>();
-		var v1 = new Vector2();
-		v1.x = -1;
-		v1.y = -5;
-		entity1.push(new Transform(v1));
-		var v2 = new Vector2();
-		v2.x = 0.1;
-		v2.y = 0.1;
-		entity1.push(new Velocity(v2));
+		entity1.push(new Transform(new Vector2(-1, -5)));
+		entity1.push(new Velocity(new Vector2(0.1, 0.1)));
 		entities.add(entity1);
 
 		var entity2 = new Array<Component>();
-		var v3 = new Vector2();
-		v3.x = 3;
-		v3.y = 2;
-		entity2.push(new Transform(v3));
+
+		entity2.push(new Transform(new Vector2(9, 2)));
 		entities.add(entity2);
 
 		var serializer = new hxbitmini.Serializer();

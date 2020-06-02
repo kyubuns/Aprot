@@ -2,7 +2,10 @@ package proto.outputContext;
 
 class OutputContext implements hxbitmini.Serializable
 {
-	public function new() {}
+	public function new(renderer: Renderer)
+	{
+		this.renderer = renderer;
+	}
 
-	@:s public var renderer: Renderer = new Renderer();
+	@:s public var renderer: Renderer;
 }
