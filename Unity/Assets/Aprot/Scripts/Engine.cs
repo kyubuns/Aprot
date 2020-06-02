@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using aprotHx.type;
 using haxe.lang;
 using haxe.root;
 using proto;
@@ -66,8 +67,8 @@ namespace Aprot
             if (string.IsNullOrWhiteSpace(currentEntities))
             {
                 currentEntities = (string) mainClass.Get<LuaFunction>("createInitEntities").Call(new object[] { }, new[] { typeof(string) })[0];
-                Debug.Log($"Init: {currentEntities}");
-                Debug.Log($"CsIn: {proto.Main.createInitEntities()}");
+                Debug.Log($"Init: {currentEntities.Length}");
+                Debug.Log($"CsIn: {proto.Main.createInitEntities().Length}");
             }
         }
 
