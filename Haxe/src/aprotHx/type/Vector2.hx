@@ -1,6 +1,6 @@
 package aprotHx.type;
 
-class Vector2 implements hxbit.Serializable
+class Vector2 implements hxbitmini.Serializable
 {
 	public function new() {}
 

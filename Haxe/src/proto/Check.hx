@@ -12,7 +12,7 @@ class Check
 	{
 		trace("Check.main");
 
-		var serializer = new hxbit.Serializer();
+		var serializer = new hxbitmini.Serializer();
 		var entities = serializer.unserialize(haxe.io.Bytes.ofHex(Main.createInitEntities()), EntityList);
 
 		printEntities(entities);

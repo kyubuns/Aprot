@@ -1,3 +1,3 @@
 package aprotHx;
 
-class Component implements hxbit.Serializable {}
+class Component implements hxbitmini.Serializable {}

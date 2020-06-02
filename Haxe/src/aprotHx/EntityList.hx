@@ -2,7 +2,7 @@ package aprotHx;
 
 import aprotHx.type.ArrayWrapper;
 
-class EntityList implements hxbit.Serializable
+class EntityList implements hxbitmini.Serializable
 {
 	public function new() {}
 

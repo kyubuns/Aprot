@@ -91,7 +91,7 @@ class ArrayWrapperBuilder
 				pack: [],
 				name: name,
 				meta: meta,
-				kind: TDClass(null, [{ pack: ['hxbit'], name: 'Serializable', params: [] }]),
+				kind: TDClass(null, [{ pack: ['hxbitmini'], name: 'Serializable', params: [] }]),
 				fields: fields
 			});
 		}

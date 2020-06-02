@@ -1,6 +1,6 @@
 package proto.inputContext;
 
-class InputContext implements hxbit.Serializable
+class InputContext implements hxbitmini.Serializable
 {
 	public function new(time: Time, input: Input)
 	{

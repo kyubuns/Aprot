@@ -2,7 +2,7 @@ package proto.inputContext;
 
 import aprotHx.type.Vector2;
 
-class Input implements hxbit.Serializable
+class Input implements hxbitmini.Serializable
 {
 	public function new(vector: Vector2)
 	{

@@ -2,7 +2,7 @@ package proto.outputContext;
 
 import aprotHx.type.*;
 
-class Renderer implements hxbit.Serializable
+class Renderer implements hxbitmini.Serializable
 {
 	public function new() {}
 

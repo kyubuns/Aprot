@@ -44,13 +44,13 @@ class Main
 		entity2.push(new Transform(v3));
 		entities.add(entity2);
 
-		var serializer = new hxbit.Serializer();
+		var serializer = new hxbitmini.Serializer();
 		return serializer.serialize(entities).toHex();
 	}
 
 	static public function update(serializedInputContext: String, serializedEntities: String): Array<String>
 	{
-		var serializer = new hxbit.Serializer();
+		var serializer = new hxbitmini.Serializer();
 		var inputContext = serializer.unserialize(haxe.io.Bytes.ofHex(serializedInputContext), InputContext);
 		var entities = serializer.unserialize(haxe.io.Bytes.ofHex(serializedEntities), EntityList);
 		var outputContext = createOutputContext();

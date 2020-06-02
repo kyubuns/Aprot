@@ -1,6 +1,6 @@
 package proto.outputContext;
 
-class OutputContext implements hxbit.Serializable
+class OutputContext implements hxbitmini.Serializable
 {
 	public function new() {}
 

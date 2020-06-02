@@ -1,6 +1,6 @@
 package proto.inputContext;
 
-class Time implements hxbit.Serializable
+class Time implements hxbitmini.Serializable
 {
 	public function new(deltaTime: Float)
 	{
