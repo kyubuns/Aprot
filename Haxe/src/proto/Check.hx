@@ -13,7 +13,7 @@ class Check
 		trace("Check.main");
 
 		var serializer = new hxbitmini.Serializer();
-		var entities = serializer.unserialize(haxe.io.Bytes.ofHex(Main.createInitEntities()), EntityList);
+		var entities = serializer.unserialize(haxe.io.Bytes.ofString(Main.createInitEntities()), EntityList);
 
 		printEntities(entities);
 
@@ -24,11 +24,11 @@ class Check
 		var input = new Input(v1);
 		var inputContext = new InputContext(time, input);
 
-		var serializedEntities = serializer.serialize(entities).toHex();
-		var serializedInputContext = serializer.serialize(inputContext).toHex();
+		var serializedEntities = serializer.serialize(entities).toString();
+		var serializedInputContext = serializer.serialize(inputContext).toString();
 		var output = Main.update(serializedInputContext, serializedEntities);
-		var outputContext = serializer.unserialize(haxe.io.Bytes.ofHex(output[1]), OutputContext);
-		var updatedEntities = serializer.unserialize(haxe.io.Bytes.ofHex(output[2]), EntityList);
+		var outputContext = serializer.unserialize(haxe.io.Bytes.ofString(output[1]), OutputContext);
+		var updatedEntities = serializer.unserialize(haxe.io.Bytes.ofString(output[2]), EntityList);
 
 		printEntities(updatedEntities);
 	}

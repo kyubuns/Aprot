@@ -45,20 +45,20 @@ class Main
 		entities.add(entity2);
 
 		var serializer = new hxbitmini.Serializer();
-		return serializer.serialize(entities).toHex();
+		return serializer.serialize(entities).toString();
 	}
 
 	static public function update(serializedInputContext: String, serializedEntities: String): Array<String>
 	{
 		var serializer = new hxbitmini.Serializer();
-		var inputContext = serializer.unserialize(haxe.io.Bytes.ofHex(serializedInputContext), InputContext);
-		var entities = serializer.unserialize(haxe.io.Bytes.ofHex(serializedEntities), EntityList);
+		var inputContext = serializer.unserialize(haxe.io.Bytes.ofString(serializedInputContext), InputContext);
+		var entities = serializer.unserialize(haxe.io.Bytes.ofString(serializedEntities), EntityList);
 		var outputContext = createOutputContext();
 		Engine.update(inputContext, entities, outputContext, createSystems());
 		return [
 			"dummy",
-			serializer.serialize(outputContext).toHex(),
-			serializer.serialize(entities).toHex()
+			serializer.serialize(outputContext).toString(),
+			serializer.serialize(entities).toString()
 		];
 	}
 }
