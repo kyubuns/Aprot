@@ -1,0 +1,17 @@
+{
+    "name": "Aprot.Editor",
+    "references": [
+        "GUID:25f14b757e3ce4851889f444b793042c"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
