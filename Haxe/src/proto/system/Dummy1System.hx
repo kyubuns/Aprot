@@ -16,6 +16,18 @@ class Dummy1System extends aprotHx.System
 		{
 			entity.transform.position.x += entity.velocity.vector.x * context.input.time.deltaTime;
 			entity.transform.position.y += entity.velocity.vector.y * context.input.time.deltaTime;
+
+			if (entity.transform.position.x < -3)
+				entity.transform.position.x = 3;
+
+			if (entity.transform.position.x > 3)
+				entity.transform.position.x = -3;
+
+			if (entity.transform.position.y < -3)
+				entity.transform.position.y = 3;
+
+			if (entity.transform.position.y > 3)
+				entity.transform.position.y = -3;
 		}
 	}
 }
