@@ -20,8 +20,7 @@ class Check
 		printEntities(entities);
 
 		final time = new Time(1.0);
-		final input = new Input(new Vector2(1.0, 0.0));
-		final inputContext = new InputContext(time, input);
+		final inputContext = new InputContext(time, [Key.Up]);
 
 		final serializedEntities = serializer.serialize(entities).toHex();
 		final serializedInputContext = serializer.serialize(inputContext).toHex();
