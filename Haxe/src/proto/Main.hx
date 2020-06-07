@@ -1,8 +1,7 @@
 package proto;
 
-import haxe.io.Bytes;
-import haxe.io.BytesData;
 import proto.inputContext.InputContext;
+import proto.sceneContext.SceneContext;
 import aprotHx.*;
 import aprotHx.type.*;
 import proto.system.*;
@@ -14,7 +13,7 @@ class Main
 {
 	static private function createOutputContext(): OutputContext
 	{
-		var renderer = new Renderer();
+		final renderer = new Renderer();
 		return new OutputContext(renderer);
 	}
 
@@ -25,14 +24,14 @@ class Main
 
 	static public function createInitEntitiesNative(): EntityList
 	{
-		var entities = new EntityList();
+		final entities = new EntityList();
 
-		var entity1 = new Array<Component>();
+		final entity1 = new Array<Component>();
 		entity1.push(new Transform(new Vector2(-1, -4)));
 		entity1.push(new Velocity(new Vector2(1, 1)));
 		entities.add(entity1);
 
-		var entity2 = new Array<Component>();
+		final entity2 = new Array<Component>();
 
 		entity2.push(new Transform(new Vector2(9, 2)));
 		entities.add(entity2);
@@ -42,25 +41,38 @@ class Main
 
 	static public function createInitEntities(): String
 	{
-		var serializer = new hxbitmini.Serializer();
+		final serializer = new hxbitmini.Serializer();
 		return serializer.serialize(createInitEntitiesNative()).toHex();
 	}
 
-	static public function updateNative(inputContext: InputContext, entities: EntityList): OutputContext
+	static public function createInitSceneContextNative(): SceneContext
 	{
-		var outputContext = createOutputContext();
-		Engine.update(inputContext, entities, outputContext, createSystems());
+		return new SceneContext();
+	}
+
+	static public function createInitSceneContext(): String
+	{
+		final serializer = new hxbitmini.Serializer();
+		return serializer.serialize(createInitSceneContextNative()).toHex();
+	}
+
+	static public function updateNative(inputContext: InputContext, sceneContext: SceneContext, entities: EntityList): OutputContext
+	{
+		final outputContext = createOutputContext();
+		Engine.update(inputContext, outputContext, sceneContext, entities, createSystems());
 		return outputContext;
 	}
 
-	static public function update(serializedInputContext: String, serializedEntities: String): NativeArray<String>
+	static public function update(serializedInputContext: String, serializedSceneContext: String, serializedEntities: String): NativeArray<String>
 	{
-		var serializer = new hxbitmini.Serializer();
-		var inputContext = serializer.unserialize(haxe.io.Bytes.ofHex(serializedInputContext), InputContext);
-		var entities = serializer.unserialize(haxe.io.Bytes.ofHex(serializedEntities), EntityList);
-		var outputContext = updateNative(inputContext, entities);
+		final serializer = new hxbitmini.Serializer();
+		final inputContext = serializer.unserialize(haxe.io.Bytes.ofHex(serializedInputContext), InputContext);
+		final sceneContext = serializer.unserialize(haxe.io.Bytes.ofHex(serializedSceneContext), SceneContext);
+		final entities = serializer.unserialize(haxe.io.Bytes.ofHex(serializedEntities), EntityList);
+		final outputContext = updateNative(inputContext, sceneContext, entities);
 		return [
 			serializer.serialize(outputContext).toHex(),
+			serializer.serialize(sceneContext).toHex(),
 			serializer.serialize(entities).toHex()
 		];
 	}

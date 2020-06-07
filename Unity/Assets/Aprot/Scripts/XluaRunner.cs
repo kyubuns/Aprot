@@ -13,6 +13,7 @@ namespace Aprot
     {
         private LuaFunction updateFunction;
         private string currentEntities;
+        private string currentSceneContext;
         private WebSocket webSocket;
         private string requestUpdate;
         private byte[] bit32lua;
@@ -58,6 +59,7 @@ namespace Aprot
             if (string.IsNullOrWhiteSpace(currentEntities))
             {
                 currentEntities = (string) mainClass.Get<LuaFunction>("createInitEntities").Call(new object[] { }, new[] { typeof(string) })[0];
+                currentSceneContext = (string) mainClass.Get<LuaFunction>("createInitSceneContext").Call(new object[] { }, new[] { typeof(string) })[0];
                 Debug.Log($"XluaRunner Init: {currentEntities.Length}");
             }
         }
@@ -76,9 +78,10 @@ namespace Aprot
             }
 
             var serializedInputContext = proto.Bridge.serializeInputContext(inputContext);
-            var output = (string[]) updateFunction.Call(new object[] { serializedInputContext, currentEntities }, new[] { typeof(string[]) })[0];
+            var output = (string[]) updateFunction.Call(new object[] { serializedInputContext, currentSceneContext, currentEntities }, new[] { typeof(string[]) })[0];
             var serializedOutputContext = output[0];
-            currentEntities = output[1];
+            currentSceneContext = output[1];
+            currentEntities = output[2];
             return proto.Bridge.deserializeOutputContext(serializedOutputContext);
         }
 

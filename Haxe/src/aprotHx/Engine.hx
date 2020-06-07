@@ -3,10 +3,10 @@ package aprotHx;
 class Engine
 {
 	@:generic
-	public static function update<TInputContext, TOutputContext>(inputContext: TInputContext, entities: EntityList, outputContext: TOutputContext,
-			systems: Array<System>): Void
+	public static function update<TInputContext, TOutputContext, TSceneContext>(inputContext: TInputContext, outputContext: TOutputContext,
+			sceneContext: TSceneContext, entities: EntityList, systems: Array<System>): Void
 	{
-		var context = new Context<TInputContext, TOutputContext>(inputContext, outputContext);
+		var context = new Context<TInputContext, TOutputContext, TSceneContext>(inputContext, outputContext, sceneContext);
 
 		for (system in systems)
 		{

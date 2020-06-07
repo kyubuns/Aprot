@@ -4,13 +4,14 @@ import aprotHx.*;
 import aprotHx.type.*;
 import proto.inputContext.InputContext;
 import proto.outputContext.OutputContext;
+import proto.sceneContext.SceneContext;
 import proto.component.*;
 
 class Dummy1System extends aprotHx.System
 {
 	public function new() {}
 
-	public function update(context: Context<InputContext, OutputContext>, entities: Array<RefEntity<Transform, Velocity>>)
+	public function update(context: Context<InputContext, OutputContext, SceneContext>, entities: Array<RefEntity<Transform, Velocity>>)
 	{
 		for (entity in entities)
 		{
