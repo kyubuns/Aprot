@@ -29,7 +29,7 @@ class ArrayWrapperBuilder
 		var name = 'ArrayWrapper_${type.getClass().name}';
 		var typeExists = try
 		{
-			Context.getType(name);
+			Context.getType('aprotHx.$name');
 			true;
 		} catch (_:Any) false;
 
@@ -88,7 +88,7 @@ class ArrayWrapperBuilder
 			var meta: Metadata = [];
 			Context.defineType({
 				pos: pos,
-				pack: [],
+				pack: ['aprotHx'],
 				name: name,
 				meta: meta,
 				kind: TDClass(null, [{ pack: ['hxbitmini'], name: 'Serializable', params: [] }]),
@@ -97,7 +97,7 @@ class ArrayWrapperBuilder
 		}
 
 		return TPath({
-			pack: [],
+			pack: ['aprotHx'],
 			name: name,
 			params: []
 		});

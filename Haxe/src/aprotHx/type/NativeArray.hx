@@ -1,5 +1,6 @@
 package aprotHx.type;
 
+// luaが1-indexedなのを吸収するArray
 #if lua
 import lua.Table;
 import lua.PairTools;
