@@ -1,3 +1,4 @@
+#if FULL_CSHARP
 using aprotHx;
 using proto.inputContext;
 using proto.outputContext;
@@ -29,3 +30,4 @@ namespace Aprot
         }
     }
 }
+#endif
