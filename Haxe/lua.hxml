@@ -6,4 +6,5 @@ proto.Main
 -D lua-vanilla
 -main proto.DummyMain
 -lib hxbitmini
+-D hxbitmini_nullsafety
 -cmd cp out/lua/main.lua ../Unity/Assets/Resources/lua.txt

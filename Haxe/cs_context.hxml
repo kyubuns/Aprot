@@ -6,4 +6,5 @@ proto.Bridge
 -D no_root
 -D net-ver=40
 -lib hxbitmini
+-D hxbitmini_nullsafety
 -cmd cp out/cs/AprotHx/bin/AprotHx.dll ../Unity/Assets/Generated/

@@ -5,3 +5,4 @@ proto.Main
 --main proto.Check
 --interp
 -lib hxbitmini
+-D hxbitmini_nullsafety
