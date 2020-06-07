@@ -8,7 +8,7 @@ import proto.outputContext.OutputContext;
 import proto.sceneContext.SceneContext;
 import proto.component.*;
 
-class Dummy1System extends aprotHx.System
+class MoveSystem extends aprotHx.System
 {
 	public function new() {}
 
