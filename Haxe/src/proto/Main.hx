@@ -28,7 +28,6 @@ class Main
 
 		final entity1 = new Array<Component>();
 		entity1.push(new Transform(new Vector2(-1, -4)));
-		entity1.push(new Velocity(new Vector2(1, 1)));
 		entities.add(entity1);
 
 		final entity2 = new Array<Component>();

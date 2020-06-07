@@ -12,7 +12,7 @@ class Dummy1System extends aprotHx.System
 {
 	public function new() {}
 
-	public function update(context: Context<InputContext, OutputContext, SceneContext>, entities: Array<RefEntity<Transform, Velocity>>)
+	public function update(context: Context<InputContext, OutputContext, SceneContext>, entities: Array<RefEntity<Transform>>)
 	{
 		for (entity in entities)
 		{
