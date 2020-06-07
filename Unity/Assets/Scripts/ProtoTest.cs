@@ -5,7 +5,6 @@ using proto.inputContext;
 using UnityEngine;
 using UnityEngine.UI;
 using Time = UnityEngine.Time;
-using Vector2 = aprotHx.type.Vector2;
 
 namespace Proto
 {
@@ -15,7 +14,7 @@ namespace Proto
         [SerializeField] private InputField inputField = default;
         [SerializeField] private Button connectButton = default;
         [SerializeField] private GameObject box = default;
-        private List<GameObject> boxCache = new List<GameObject>();
+        private readonly List<GameObject> boxCache = new List<GameObject>();
 
         private Engine engine;
         private readonly FpsCounter fpsCounter = new FpsCounter();
@@ -47,8 +46,14 @@ namespace Proto
             if (engine == null) return;
 
             var time = new proto.inputContext.Time(Time.deltaTime);
-            var input = new proto.inputContext.Input(new Vector2(0, 0));
-            var inputContext = new InputContext(time, input);
+            var inputKeys = new List<Key>();
+            if (Input.GetKeyDown(KeyCode.W)) inputKeys.Add(Key.Up);
+            if (Input.GetKeyDown(KeyCode.A)) inputKeys.Add(Key.Left);
+            if (Input.GetKeyDown(KeyCode.S)) inputKeys.Add(Key.Down);
+            if (Input.GetKeyDown(KeyCode.D)) inputKeys.Add(Key.Right);
+            if (Input.GetKeyDown(KeyCode.Z)) inputKeys.Add(Key.A);
+            if (Input.GetKeyDown(KeyCode.X)) inputKeys.Add(Key.B);
+            var inputContext = new InputContext(time, inputKeys.ToHaxeArray());
             var outputContext = engine.Update(inputContext);
             if (outputContext?.renderer?.queue == null) return;
 

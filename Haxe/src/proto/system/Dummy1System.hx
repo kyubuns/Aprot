@@ -1,5 +1,6 @@
 package proto.system;
 
+import proto.inputContext.Key;
 import aprotHx.*;
 import aprotHx.type.*;
 import proto.inputContext.InputContext;
@@ -15,20 +16,22 @@ class Dummy1System extends aprotHx.System
 	{
 		for (entity in entities)
 		{
-			entity.transform.position.x += entity.velocity.vector.x * context.input.time.deltaTime;
-			entity.transform.position.y += entity.velocity.vector.y * context.input.time.deltaTime;
-
-			if (entity.transform.position.x < -3)
-				entity.transform.position.x = 3;
-
-			if (entity.transform.position.x > 3)
-				entity.transform.position.x = -3;
-
-			if (entity.transform.position.y < -3)
-				entity.transform.position.y = 3;
-
-			if (entity.transform.position.y > 3)
-				entity.transform.position.y = -3;
+			if (context.input.keys.contains(Key.Up))
+			{
+				entity.transform.position.y += 1.0;
+			}
+			if (context.input.keys.contains(Key.Down))
+			{
+				entity.transform.position.y -= 1.0;
+			}
+			if (context.input.keys.contains(Key.Right))
+			{
+				entity.transform.position.x += 1.0;
+			}
+			if (context.input.keys.contains(Key.Left))
+			{
+				entity.transform.position.x -= 1.0;
+			}
 		}
 	}
 }

@@ -94,6 +94,7 @@
             <e p="Aprot.asmdef" t="Include" />
             <e p="Engine.cs" t="Include" />
             <e p="FullCsharpRunner.cs" t="Include" />
+            <e p="HaxeExtensions.cs" t="Include" />
             <e p="XluaRunner.cs" t="Include" />
           </e>
         </e>

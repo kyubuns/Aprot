@@ -6,4 +6,6 @@ enum Key
 	Right;
 	Down;
 	Left;
+	A;
+	B;
 }
