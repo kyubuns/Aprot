@@ -1,0 +1,9 @@
+-cp src
+proto.test.TestAll
+--macro nullSafety("aprotHx", Strict)
+--macro nullSafety("proto", Strict)
+--main proto.test.TestAll
+--interp
+-lib hxbitmini
+-D hxbitmini_nullsafety
+-lib utest
