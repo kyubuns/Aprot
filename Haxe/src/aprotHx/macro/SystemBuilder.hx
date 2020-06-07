@@ -21,6 +21,27 @@ class SystemBuilder
 
 		var updateFunction = fields.filter(x -> x.name == "update")[0];
 		var updateFunctionArgsType = MacroUtil.getArgsType(updateFunction.kind);
+
+		if (updateFunctionArgsType.length == 1)
+		{
+			var code = macro
+				{
+					update(context);
+				};
+
+			fields.push({
+				name: "updateInternal",
+				access: [APublic, AOverride],
+				kind: FFun({
+					args: args,
+					ret: null,
+					expr: code
+				}),
+				pos: pos
+			});
+			return fields;
+		}
+
 		var refEntityType = MacroUtil.getArrayType(updateFunctionArgsType[1].type);
 		var refParams = MacroUtil.getGenericTypes(refEntityType);
 		var refParamNames = refParams.map(x -> MacroUtil.tpTypeToName(x));
