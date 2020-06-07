@@ -1,3 +1,4 @@
+using aprotHx;
 using proto.inputContext;
 using proto.outputContext;
 using UnityEngine;
@@ -6,20 +7,18 @@ namespace Aprot
 {
     public class FullCsharpRunner : IRunner
     {
-        private string currentEntities;
+        private EntityList currentEntities;
+
         public void ConnectDevelopmentServer(string url)
         {
-            currentEntities = proto.Main.createInitEntities();
-            Debug.Log($"FullCsharpRunner Init: {currentEntities.Length}");
+            currentEntities = proto.Main.createInitEntitiesNative();
+            Debug.Log($"FullCsharpRunner");
         }
 
         public OutputContext Update(InputContext inputContext)
         {
-            var serializedInputContext = proto.Bridge.serializeInputContext(inputContext);
-            var output = proto.Main.update(serializedInputContext, currentEntities);
-            var serializedOutputContext = output[0];
-            currentEntities = output[1];
-            return proto.Bridge.deserializeOutputContext(serializedOutputContext);
+            var outputContext = proto.Main.updateNative(inputContext, currentEntities);
+            return outputContext;
         }
 
         public void Dispose()

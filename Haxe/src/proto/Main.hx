@@ -1,5 +1,6 @@
 package proto;
 
+import haxe.io.Bytes;
 import haxe.io.BytesData;
 import proto.inputContext.InputContext;
 import aprotHx.*;
@@ -22,7 +23,7 @@ class Main
 		return [new Dummy1System(), new RenderSystem()];
 	}
 
-	static public function createInitEntities(): String
+	static public function createInitEntitiesNative(): EntityList
 	{
 		var entities = new EntityList();
 
@@ -36,8 +37,20 @@ class Main
 		entity2.push(new Transform(new Vector2(9, 2)));
 		entities.add(entity2);
 
+		return entities;
+	}
+
+	static public function createInitEntities(): String
+	{
 		var serializer = new hxbitmini.Serializer();
-		return serializer.serialize(entities).toHex();
+		return serializer.serialize(createInitEntitiesNative()).toHex();
+	}
+
+	static public function updateNative(inputContext: InputContext, entities: EntityList): OutputContext
+	{
+		var outputContext = createOutputContext();
+		Engine.update(inputContext, entities, outputContext, createSystems());
+		return outputContext;
 	}
 
 	static public function update(serializedInputContext: String, serializedEntities: String): NativeArray<String>
@@ -45,8 +58,7 @@ class Main
 		var serializer = new hxbitmini.Serializer();
 		var inputContext = serializer.unserialize(haxe.io.Bytes.ofHex(serializedInputContext), InputContext);
 		var entities = serializer.unserialize(haxe.io.Bytes.ofHex(serializedEntities), EntityList);
-		var outputContext = createOutputContext();
-		Engine.update(inputContext, entities, outputContext, createSystems());
+		var outputContext = updateNative(inputContext, entities);
 		return [
 			serializer.serialize(outputContext).toHex(),
 			serializer.serialize(entities).toHex()
