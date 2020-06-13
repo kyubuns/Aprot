@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using WebSocketSharp;
 using WebSocketSharp.Server;
@@ -149,6 +150,7 @@ namespace Server
                     Console.WriteLine($"OnUpdate {sender}, {e.Name} {e.ChangeType} {e.FullPath}");
                     try
                     {
+                        Thread.Sleep(100);
                         Current = File.ReadAllText(e.FullPath, Encoding.UTF8);
                     }
                     catch (FileNotFoundException)
