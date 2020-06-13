@@ -23,16 +23,19 @@ namespace Proto
         {
             Application.targetFrameRate = 60;
             inputField.text = PlayerPrefs.GetString("DebugKey", "");
-            connectButton.onClick.AddListener(() =>
-            {
-                Debug.Log($"Connect to {inputField.text}");
-                PlayerPrefs.SetString("DebugKey", inputField.text);
-
-                engine = new Engine();
-                engine.ConnectDevelopmentServer(inputField.text);
-            });
+            connectButton.onClick.AddListener(() => { Connect(); });
 
             box.SetActive(false);
+            if (Application.isEditor) Connect();
+        }
+
+        private void Connect()
+        {
+            Debug.Log($"Connect to {inputField.text}");
+            PlayerPrefs.SetString("DebugKey", inputField.text);
+
+            engine = new Engine();
+            engine.ConnectDevelopmentServer(inputField.text);
         }
 
         public void Update()
