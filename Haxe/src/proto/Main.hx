@@ -27,13 +27,9 @@ class Main
 		final entities = new EntityList();
 
 		final entity1 = new Array<Component>();
-		entity1.push(new Transform(new Vector2(-1, -4)));
+		entity1.push(new Transform(new Vector2(0, 1)));
+		entity1.push(new Scene(0));
 		entities.add(entity1);
-
-		final entity2 = new Array<Component>();
-
-		entity2.push(new Transform(new Vector2(9, 2)));
-		entities.add(entity2);
 
 		return entities;
 	}
@@ -46,7 +42,7 @@ class Main
 
 	static public function createInitSceneContextNative(): SceneContext
 	{
-		return new SceneContext();
+		return new SceneContext(0);
 	}
 
 	static public function createInitSceneContext(): String

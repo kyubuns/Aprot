@@ -21,15 +21,27 @@ class MoveSystemTest extends utest.Test
 	{
 		var inputContext = new InputContext(new Time(1.0), [Key.Right]);
 		var outputContext = new OutputContext(new Renderer());
-		var sceneContext = new SceneContext();
+		var sceneContext = new SceneContext(0);
 		var context = new Context(inputContext, outputContext, sceneContext);
 
-		var entities = new Array<RefEntity<Transform>>();
-		var entity1 = new RefEntity<Transform>(123, new Transform(new Vector2(5, 5)));
-		entities.push(entity1);
-		moveSystem.update(context, entities);
+		var entity1 = new RefEntity<Transform, Scene>(123, new Transform(new Vector2(5, 5)), new Scene(0));
+		moveSystem.update(context, [entity1]);
 
 		Assert.equals(6, entity1.transform.position.x);
+		Assert.equals(5, entity1.transform.position.y);
+	}
+
+	function testNoMoveOtherScene()
+	{
+		var inputContext = new InputContext(new Time(1.0), [Key.Right]);
+		var outputContext = new OutputContext(new Renderer());
+		var sceneContext = new SceneContext(1);
+		var context = new Context(inputContext, outputContext, sceneContext);
+
+		var entity1 = new RefEntity<Transform, Scene>(123, new Transform(new Vector2(5, 5)), new Scene(0));
+		moveSystem.update(context, [entity1]);
+
+		Assert.equals(5, entity1.transform.position.x);
 		Assert.equals(5, entity1.transform.position.y);
 	}
 }

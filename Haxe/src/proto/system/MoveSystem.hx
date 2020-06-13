@@ -12,10 +12,13 @@ class MoveSystem extends aprotHx.System
 {
 	public function new() {}
 
-	public function update(context: Context<InputContext, OutputContext, SceneContext>, entities: Array<RefEntity<Transform>>)
+	public function update(context: Context<InputContext, OutputContext, SceneContext>, entities: Array<RefEntity<Transform, Scene>>)
 	{
 		for (entity in entities)
 		{
+			if (entity.scene.scene != context.scene.scene)
+				continue;
+
 			if (context.input.keys.contains(Key.Up))
 			{
 				entity.transform.position.y += 1.0;

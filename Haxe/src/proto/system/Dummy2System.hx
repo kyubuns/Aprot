@@ -14,6 +14,6 @@ class Dummy2System extends aprotHx.System
 
 	public function update(context: Context<InputContext, OutputContext, SceneContext>)
 	{
-		trace("Dummy2!");
+		// trace("Dummy2!");
 	}
 }

@@ -60,7 +60,10 @@ namespace Aprot
             {
                 currentEntities = (string) mainClass.Get<LuaFunction>("createInitEntities").Call(new object[] { }, new[] { typeof(string) })[0];
                 currentSceneContext = (string) mainClass.Get<LuaFunction>("createInitSceneContext").Call(new object[] { }, new[] { typeof(string) })[0];
-                Debug.Log($"XluaRunner Init: {currentEntities.Length}");
+                Debug.Log($"XluaRunner Init: {currentEntities.Length} | {currentEntities}");
+
+                var dummy = proto.Main.createInitEntities();
+                Debug.Log($"Cs__Runner Init: {dummy.Length} | {dummy}");
             }
         }
 

@@ -1,6 +1,6 @@
-package proto.sceneContext;
+package proto.component;
 
-class SceneContext implements hxbitmini.Serializable
+class Scene extends aprotHx.Component
 {
 	public function new(scene: Int)
 	{
