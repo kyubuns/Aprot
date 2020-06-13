@@ -29,7 +29,7 @@ class Main
 		final entity1 = new Array<Component>();
 		entity1.push(new Transform(new Vector2(0, 1)));
 		entity1.push(new Scene(0));
-		entity1.push(new Material(0, 0, 200));
+		entity1.push(new Material(new Color(0, 0, 200)));
 		entities.add(entity1);
 
 		return entities;

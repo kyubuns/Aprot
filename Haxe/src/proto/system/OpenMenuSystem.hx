@@ -27,7 +27,7 @@ class OpenMenuSystem extends aprotHx.System
 			final entity1 = new Array<Component>();
 			entity1.push(new Transform(new Vector2(0, 0)));
 			entity1.push(new Scene(1));
-			entity1.push(new Material(200, 0, 0));
+			entity1.push(new Material(new Color(200, 0, 0)));
 			context.entities.add(entity1);
 		} else
 		{

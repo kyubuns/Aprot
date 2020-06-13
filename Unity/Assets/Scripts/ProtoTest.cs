@@ -61,16 +61,24 @@ namespace Proto
             if (outputContext?.renderer?.queue == null) return;
 
             var renderQueue = outputContext.renderer.queue.toTyped();
+            foreach (var b in boxCache)
+            {
+                b.transform.localPosition = new Vector3(-100f, -100f, -100f);
+            }
             foreach (var (x, i) in renderQueue.Select((x, i) => (x, i)))
             {
                 if (boxCache.Count <= i)
                 {
-                    var newBox = GameObject.Instantiate(box);
+                    var newBox = Instantiate(box);
                     newBox.SetActive(true);
                     boxCache.Add(newBox);
                 }
 
-                boxCache[i].transform.localPosition = new Vector3((float) x.x, (float) x.y, 0f);
+                boxCache[i].transform.localPosition = new Vector3((float) x.position.x, (float) x.position.y, 0f);
+                foreach (var r in boxCache[i].GetComponentsInChildren<Renderer>())
+                {
+                    r.material.color = new Color32((byte) x.color.r, (byte) x.color.g, (byte) x.color.b, 255);
+                }
             }
         }
 
