@@ -27,7 +27,9 @@
     },
     "lineEnds": {
         "blockCurly": {
-            "leftCurly": "both"
+            "leftCurly": "both",
+            "rightCurly": "both",
+            "emptyCurly": "break"
         }
     }
 }

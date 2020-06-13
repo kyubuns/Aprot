@@ -8,12 +8,25 @@ import proto.outputContext.OutputContext;
 import proto.sceneContext.SceneContext;
 import proto.component.*;
 
-class Dummy2System extends aprotHx.System
+class OpenMenuSystem extends aprotHx.System
 {
-	public function new() {}
+	public function new()
+	{
+	}
 
 	public function update(context: Context<InputContext, OutputContext, SceneContext>)
 	{
-		// trace("Dummy2!");
+		if (!context.input.keys.contains(Key.A))
+			return;
+
+		if (context.scene.scene == 0)
+		{
+			// go to menu
+			context.scene.scene = 1;
+		} else
+		{
+			// close menu
+			context.scene.scene = 0;
+		}
 	}
 }

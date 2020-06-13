@@ -19,7 +19,7 @@ class Main
 
 	static private function createSystems(): Array<System>
 	{
-		return [new MoveSystem(), new Dummy2System(), new RenderSystem()];
+		return [new MoveSystem(), new OpenMenuSystem(), new RenderSystem()];
 	}
 
 	static public function createInitEntitiesNative(): EntityList
