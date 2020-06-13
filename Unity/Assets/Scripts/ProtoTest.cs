@@ -77,7 +77,7 @@ namespace Proto
                 boxCache[i].transform.localPosition = new Vector3((float) x.position.x, (float) x.position.y, 0f);
                 foreach (var r in boxCache[i].GetComponentsInChildren<Renderer>())
                 {
-                    r.material.color = new Color32((byte) x.color.r, (byte) x.color.g, (byte) x.color.b, 255);
+                    r.material.color = new Color32((byte) x.color.r, (byte) x.color.g, (byte) x.color.b, (byte) x.alpha);
                 }
             }
         }

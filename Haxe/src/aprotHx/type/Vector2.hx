@@ -8,6 +8,11 @@ class Vector2 implements hxbitmini.Serializable
 		this.y = y;
 	}
 
+	public function copy(): Vector2
+	{
+		return new Vector2(x, y);
+	}
+
 	@:s public var x: Float;
 	@:s public var y: Float;
 }

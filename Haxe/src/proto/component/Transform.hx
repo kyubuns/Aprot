@@ -9,5 +9,10 @@ class Transform extends aprotHx.Component
 		this.position = position;
 	}
 
+	public function copy(): Transform
+	{
+		return new Transform(position);
+	}
+
 	@:s public var position: Vector2;
 }

@@ -98,6 +98,9 @@
             <e p="XluaRunner.cs" t="Include" />
           </e>
         </e>
+        <e p="Proto" t="Include">
+          <e p="UnlitTransparent.shader" t="Include" />
+        </e>
         <e p="Resources" t="Include">
           <e p="bit32.lua.txt" t="Include" />
           <e p="lua.txt" t="Include" />
