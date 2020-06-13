@@ -6,7 +6,7 @@ class Engine
 	public static function update<TInputContext, TOutputContext, TSceneContext>(inputContext: TInputContext, outputContext: TOutputContext,
 			sceneContext: TSceneContext, entities: EntityList, systems: Array<System>): Void
 	{
-		var context = new Context<TInputContext, TOutputContext, TSceneContext>(inputContext, outputContext, sceneContext);
+		var context = new Context<TInputContext, TOutputContext, TSceneContext>(inputContext, outputContext, sceneContext, entities);
 
 		for (system in systems)
 		{

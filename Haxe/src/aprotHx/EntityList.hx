@@ -2,9 +2,11 @@ package aprotHx;
 
 import aprotHx.type.ArrayWrapper;
 
-class EntityList implements hxbitmini.Serializable
+class EntityList implements EntityAccess implements hxbitmini.Serializable
 {
-	public function new() {}
+	public function new()
+	{
+	}
 
 	@:s public var nextId: Int = 0;
 	@:s public var entities: ArrayWrapper<Entity> = new ArrayWrapper<Entity>();
@@ -21,5 +23,13 @@ class EntityList implements hxbitmini.Serializable
 		}
 
 		return newEntity;
+	}
+
+	public function delete(id: Int)
+	{
+		for (target in entities.value.filter(x -> x.id == id))
+		{
+			entities.value.remove(target);
+		}
 	}
 }

@@ -14,7 +14,7 @@ class OpenMenuSystem extends aprotHx.System
 	{
 	}
 
-	public function update(context: Context<InputContext, OutputContext, SceneContext>)
+	public function update(context: Context<InputContext, OutputContext, SceneContext>, entities: Array<RefEntity<Scene>>)
 	{
 		if (!context.input.keys.contains(Key.A))
 			return;
@@ -23,10 +23,20 @@ class OpenMenuSystem extends aprotHx.System
 		{
 			// go to menu
 			context.scene.scene = 1;
+
+			final entity1 = new Array<Component>();
+			entity1.push(new Transform(new Vector2(0, 0)));
+			entity1.push(new Scene(1));
+			context.entities.add(entity1);
 		} else
 		{
 			// close menu
 			context.scene.scene = 0;
+
+			for (target in entities.filter(x -> x.scene.scene == 1).map(x -> x.id))
+			{
+				context.entities.delete(target);
+			}
 		}
 	}
 }
